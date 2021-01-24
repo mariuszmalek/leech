@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/mariuszmalek/leech">
-    <img src="https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/logo.png" alt="Instagram Bot" width="300">
+    <img src="https://raw.githubusercontent.com/mariuszmalek/leech/main/img/logo.png" alt="Instagram Bot" width="300">
   </a>
 </p>
 

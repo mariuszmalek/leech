@@ -9,59 +9,48 @@ import os
 import urllib.request
 import requests
 import getpass
-from termcolor import colored
 from colorama import init
 import threading
 from random import randint
 import json
+from src.modules.auth import auth_login
+from src.system import configFile, get_config, dosyaMevcutMu, show_in_console
 
 class Instagram():
     def __init__(self):
         init(convert=True)
-        self.config=None
         self.dil = None
-        self.ayarlarYukle()
-        self.dilYukle()
+        configFile()
+        self.getLanguage()
         self.script()
         self.tarayiciThreadOlustur()
-        self.girisYapildimi = False
-        self.tarayiciAcildimi = False
+        self.authStatus = False
         self.aktifKullanici = ""
         self.index = 1
         self.BASE_URL = "https://www.instagram.com/"
-        self.girisYap()
 
     def script(self):
         print("")
-        self.uyariOlustur("  _____           _                                    ____        _   ", 1)
-        self.uyariOlustur(" |_   _|         | |                                  |  _ \      | |  ", 1)
-        self.uyariOlustur("   | |  _ __  ___| |_ __ _  __ _ _ __ __ _ _ __ ___   | |_) | ___ | |_ ", 1)
-        self.uyariOlustur("   | | | '_ \/ __| __/ _` |/ _` | '__/ _` | '_ ` _ \  |  _ < / _ \| __|", 1)
-        self.uyariOlustur("  _| |_| | | \__ \ || (_| | (_| | | | (_| c | | | | | | |_) | (_) | |_ ", 1)
-        self.uyariOlustur(" |_____|_| |_|___/\__\__,_|\__, |_|  \__,_|_| |_| |_| |____/ \___/ \__|", 1)
-        self.uyariOlustur("                            __/ |                                      ", 1)
-        self.uyariOlustur("                           |___/                                       ", 1)
-        self.uyariOlustur("# ==============================================================================", 1)
-        self.uyariOlustur("# author       :Mustafa Dalga", 1)
-        self.uyariOlustur("# linkedin     :https://www.linkedin.com/in/mustafadalga", 1)
-        self.uyariOlustur("# github       :https://github.com/mustafadalga", 1)
-        self.uyariOlustur("# email        :mustafadalgaa < at > gmail[.]com", 1)
-        self.uyariOlustur("# date         :08.08.2020", 1)
-        self.uyariOlustur("# version      :2.0", 1)
-        self.uyariOlustur("# python_version:3.8.1", 1)
-        self.uyariOlustur("# ==============================================================================", 1)
+        show_in_console("# ==============================================================================", 1)
+        show_in_console("# author       : Mariusz Malek", 1)
+        show_in_console("# linkedin     : https://www.linkedin.com/in/mariuszmalek", 1)
+        show_in_console("# github       : https://github.com/mariuszmalek", 1)
+        show_in_console("# email        : contact < at > mariuszmalek[.]com", 1)
+        show_in_console("# date         : 23.01.2021", 1)
+        show_in_console("# version      : 1.0", 1)
+        show_in_console("# ==============================================================================", 1)
         print("")
 
     def menu(self):
-        menu = self.configGetir("languages.{dil}.menu".format(dil=self.dil))
+        menu = get_config("languages.{dil}.menu".format(dil=self.dil))
         for secenek in menu:
-            self.uyariOlustur(secenek, 3)
+            show_in_console(secenek, 3)
         self.islemSec()
 
     def islemSec(self):
-        base_warnings = self.BASE_UYARI(metod=self.islemSec, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.islemSec, inputs=True)
-        secim = input(self.configGetir(base_inputs + "input1")).strip()
+        base_warnings = self.BASE_TRANSLATE(metod=self.islemSec, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.islemSec, inputs=True)
+        secim = input(get_config(base_inputs + "input1")).strip()
         if secim:
             try:
                 secim = int(secim)
@@ -86,44 +75,46 @@ class Instagram():
                     elif secim == 14:
                         self.gonderiBegenenleriTakipEt()
                     elif secim == 15:
-                        self.etiketeGoreTakipEtme()
+                        self.followUsersByTag()
                     elif secim == 16:
-                        self.etiketeGoreBegenme()
+                        self.likingPostsByTag()
                     elif secim == 17:
                         self.gonderiBegen()
                     elif secim == 18:
                         self.gonderiBegen(False)
                     elif secim == 19:
-                        self.gonderiYorumYapma()
+                        self.commentingPost()
                     elif secim == 24:
                         self.ayarlar()
                     elif secim == 25:
                         self.oturumKapat()
                     elif secim == 26:
                         self.quit()
+                    elif secim == 27:
+                        self.commentPostsByTag()
                 else:
-                    self.uyariOlustur(self.configGetir(base_warnings + "warning1"), 2)
+                    show_in_console(get_config(base_warnings + "warning1"), 2)
                     self.islemSec()
             except Exception:
-                self.uyariOlustur(self.configGetir(base_warnings + "warning2"), 2)
+                show_in_console(get_config(base_warnings + "warning2"), 2)
                 self.islemSec()
         else:
             self.islemSec()
 
     def secilenIslemiGoster(self, secim):
-        base_warnings = self.BASE_UYARI(metod=self.secilenIslemiGoster, warnings=True)
-        secimler = self.configGetir("languages.{dil}.warnings.secilenIslemiGoster.secimler".format(dil=self.dil))
+        base_warnings = self.BASE_TRANSLATE(metod=self.secilenIslemiGoster, warnings=True)
+        secimler = get_config("languages.{dil}.warnings.secilenIslemiGoster.secimler".format(dil=self.dil))
         print("")
-        self.uyariOlustur(secimler.get(str(secim), self.configGetir(base_warnings + "warning1")), 1)
+        show_in_console(secimler.get(str(secim), get_config(base_warnings + "warning1")), 1)
         if secim < 24:
-            self.uyariOlustur(self.configGetir(base_warnings + "warning2"), 3)
+            show_in_console(get_config(base_warnings + "warning2"), 3)
         print("")
 
     def profilSec(self, secim):
-        base_warnings = self.BASE_UYARI(metod=self.profilSec, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.profilSec, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.profilSec, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.profilSec, inputs=True)
 
-        kullanici = input(self.configGetir(base_inputs + "input1")).strip()
+        kullanici = input(get_config(base_inputs + "input1")).strip()
 
         if not kullanici:
             self.profilSec(secim)
@@ -131,7 +122,7 @@ class Instagram():
         self.anaMenuyeDonsunMu(kullanici)
 
         if self.kullaniciKontrol(kullanici):
-            print(str(self.configGetir(base_warnings + "warning1")).format(kullanici=kullanici))
+            print(str(get_config(base_warnings + "warning1")).format(kullanici=kullanici))
             if secim == 1:
                 self.gonderileriIndir(kullanici, secim)
             elif secim == 2:
@@ -151,7 +142,7 @@ class Instagram():
             elif secim == 23:
                 self.kullaniciEngelle(kullanici, secim, False)
         else:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning2")).format(kullanici=kullanici), 2)
+            show_in_console(str(get_config(base_warnings + "warning2")).format(kullanici=kullanici), 2)
             self.profilSec(secim)
 
     def ilkGonderiTikla(self):
@@ -159,27 +150,27 @@ class Instagram():
         ilkGonderi.click()
 
     def gonderileriIndir(self, kullanici, secim):
-        base_warnings = self.BASE_UYARI(metod=self.gonderileriIndir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.gonderileriIndir, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.gonderileriIndir)
 
         try:
             self.kullaniciProfilineYonlendir(kullanici)
             if not self.hesapGizliMi():
-                print(str(self.configGetir(base_warnings+"warning1")).format(
+                print(str(get_config(base_warnings+"warning1")).format(
                     kullanici=kullanici))
                 gonderiSayisi = self.gonderiSayisi()
                 gonderiSayisi=int(self.metindenKarakterSil(gonderiSayisi,','))
                 self.gonderiVarMi(kullanici, gonderiSayisi, secim)
                 self.ilkGonderiTikla()
-                sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                sleep(get_config("{base}sleep1".format(base=base_sleep)))
                 self.klasorOlustur(kullanici)
-                self.indexSifirla()
+                self.indexOne()
                 for index in range(gonderiSayisi):
                     if self.gonderiAlbumMu():
                         self.klasorOlustur(str(self.index) + "_album")
                         tempIndex = self.index
-                        self.indexSifirla()
-                        self.albumUrlGetir()
+                        self.indexOne()
+                        self.getAlbumUrl()
                         self.klasorDegistir("../")
                         self.index = tempIndex + 1
                     else:
@@ -189,87 +180,87 @@ class Instagram():
                         else:
                             continue
                     self.gonderiIlerlet()
-                    sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+                    sleep(get_config("{base}sleep2".format(base=base_sleep)))
                 self.klasorDegistir("../")
-                print(str(self.configGetir(base_warnings+"warning2")).format(
+                print(str(get_config(base_warnings+"warning2")).format(
                     kullanici=kullanici))
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning3")).format(
+                show_in_console(str(get_config(base_warnings+"warning3")).format(
                     kullanici=kullanici), 2)
 
             self.profilSec(secim)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning4")).format(kullanici=kullanici, hata=error), 2)
+            show_in_console(str(get_config(base_warnings+"warning4")).format(kullanici=kullanici, hata=error), 2)
             self.profilSec(secim)
 
     def gonderileriBegen(self, kullanici, secim, durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.gonderileriBegen, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.gonderileriBegen, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.gonderileriBegen)
         try:
             self.kullaniciProfilineYonlendir(kullanici)
             if not self.hesapGizliMi():
-                print(str(self.configGetir(base_warnings+"warning1")).format(
+                print(str(get_config(base_warnings+"warning1")).format(
                     kullanici=kullanici))
                 gonderiSayisi = self.gonderiSayisi()
                 gonderiSayisi = int(self.metindenKarakterSil(gonderiSayisi, ','))
                 self.gonderiVarMi(kullanici, gonderiSayisi, secim)
                 self.ilkGonderiTikla()
-                sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
-                self.indexSifirla()
+                sleep(get_config("{base}sleep1".format(base=base_sleep)))
+                self.indexOne()
                 for index in range(gonderiSayisi):
                     btn_begen = self.begenButon()
                     begeniDurum = self.begenButonuDurumGetir(btn_begen)
                     if durum:
                         if begeniDurum == "like":
-                            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(index=str(self.index),
+                            show_in_console(str(get_config(base_warnings+"warning2")).format(index=str(self.index),
                                                                                                      url=self.driver.current_url), 1)
                             self.gonderiBegenDurumDegistir(btn_begen)
                         else:
-                            print(str(self.configGetir(base_warnings+"warning3")).format(url=self.driver.current_url))
+                            print(str(get_config(base_warnings+"warning3")).format(url=self.driver.current_url))
                             self.gonderiIlerlet()
-                            sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+                            sleep(get_config("{base}sleep2".format(base=base_sleep)))
                     else:
                         if begeniDurum == "unlike":
-                            self.uyariOlustur(str(self.configGetir(base_warnings+"warning4")).format(index=str(self.index),
+                            show_in_console(str(get_config(base_warnings+"warning4")).format(index=str(self.index),
                                                                                                      url=self.driver.current_url),
                                               1)
                             self.gonderiBegenDurumDegistir(btn_begen)
                         else:
-                            print(str(self.configGetir(base_warnings+"warning5")).format(url=self.driver.current_url))
+                            print(str(get_config(base_warnings+"warning5")).format(url=self.driver.current_url))
                             self.gonderiIlerlet()
-                            sleep(self.configGetir("{base}sleep3".format(base=base_sleep)))
-                print(str(self.configGetir(base_warnings+"warning6")).format(
+                            sleep(get_config("{base}sleep3".format(base=base_sleep)))
+                print(str(get_config(base_warnings+"warning6")).format(
                     kullanici=kullanici))
                 self.profilSec(secim)
             else:
                 if durum:
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning7")).format(
+                    show_in_console(str(get_config(base_warnings+"warning7")).format(
                         kullanici=kullanici), 2)
                 else:
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning8")).format(
+                    show_in_console(str(get_config(base_warnings+"warning8")).format(
                         kullanici=kullanici), 2)
                 self.profilSec(secim)
         except Exception as error:
             if durum:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning9")).format(
+                show_in_console(str(get_config(base_warnings+"warning9")).format(
                     kullanici=kullanici, hata=error), 2)
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning10")).format(
+                show_in_console(str(get_config(base_warnings+"warning10")).format(
                     kullanici=kullanici, hata=error), 2)
             self.profilSec(secim)
 
     def topluTakiptenCik(self):
-        base_warnings = self.BASE_UYARI(metod=self.topluTakiptenCik, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.topluTakiptenCik, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.topluTakiptenCik)
         try:
-            print(self.configGetir(base_warnings+"warning1"))
+            print(get_config(base_warnings+"warning1"))
             self.kullaniciProfilineYonlendir(self.aktifKullanici)
             btn_takipEdilenler = self.takipEdilenlerButon()
             takipEdilenSayisi = btn_takipEdilenler.find_element_by_css_selector("span.g47SY").text
             takipEdilenSayisi = int(self.metindenKarakterSil(takipEdilenSayisi, ','))
             btn_takipEdilenler.click()
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
-            self.indexSifirla()
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
+            self.indexOne()
             devamEtsinMi = True
             while devamEtsinMi:
                 dialog_popup = self.driver.find_element_by_css_selector('div.pbNvD')
@@ -279,199 +270,199 @@ class Instagram():
                     btn_takip = takip.find_element_by_css_selector('button.sqdOP')
                     if btn_takip.text == "Following":
                         btn_takip.click()
-                        sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+                        sleep(get_config("{base}sleep2".format(base=base_sleep)))
                         try:
                             btn_onay = self.driver.find_element_by_css_selector("div.mt3GC > button.aOOlW")
                             btn_onay.click()
                         except Exception as error:
-                            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(
+                            show_in_console(str(get_config(base_warnings+"warning2")).format(
                                 kullanici=takipEdilenKullanıcıAdi, hata=str(error)), 2)
                             continue
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning3")).format(
+                        show_in_console(str(get_config(base_warnings+"warning3")).format(
                             index=self.index, kullanici=takipEdilenKullanıcıAdi), 1)
-                        self.indexArtir()
+                        self.indexUp()
                         if (self.index - 1) >= takipEdilenSayisi:
                             devamEtsinMi = False
                             break
-                        sleep3=self.configGetir("{base}sleep3".format(base=base_sleep))
+                        sleep3=get_config("{base}sleep3".format(base=base_sleep))
                         sleep(self.beklemeSuresiGetir(sleep3[0],sleep3[1]))
                 if devamEtsinMi:
                     try:
                         self.popupAsagiKaydir(secici='div[role="dialog"] .isgrP')
                     except Exception as error:
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning4")).format(
+                        show_in_console(str(get_config(base_warnings+"warning4")).format(
                             hata=str(error)), 2)
                         pass
-                    sleep(self.configGetir("{base}sleep4".format(base=base_sleep)))
-            print(self.configGetir(base_warnings + "warning5"))
+                    sleep(get_config("{base}sleep4".format(base=base_sleep)))
+            print(get_config(base_warnings + "warning5"))
             self.menu()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning6")).format(hata=str(error)), 2)
             self.menu()
 
     def topluYorumYapma(self, url=None, yorumSayisi=None, secilenIslem=None):
-        base_warnings = self.BASE_UYARI(metod=self.topluYorumYapma, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.topluYorumYapma, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.topluYorumYapma, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.topluYorumYapma, inputs=True)
         base_sleep = self.BASE_SLEEP(metod=self.topluYorumYapma)
-        sleep1 = self.configGetir(base_sleep + "sleep1")
+        sleep1 = get_config(base_sleep + "sleep1")
         try:
             if url is None:
-                url = input(self.configGetir(base_inputs + "input1")).strip()
+                url = input(get_config(base_inputs + "input1")).strip()
                 self.anaMenuyeDonsunMu(url)
 
                 self.urlGirildiMi(url=url, metod=self.topluYorumYapma)
                 self.urlGecerliMi(url=url, metod=self.topluYorumYapma)
 
-                print(str(self.configGetir(base_warnings + "warning1")).format(url=url))
+                print(str(get_config(base_warnings + "warning1")).format(url=url))
                 self.urlYonlendir(url)
 
                 if not self.sayfaMevcutMu():
-                    self.uyariOlustur(str(self.configGetir(base_warnings + "warning2")).format(url=url), 2)
+                    show_in_console(str(get_config(base_warnings + "warning2")).format(url=url), 2)
                     self.topluYorumYapma()
 
                 if self.hesapGizliMi():
-                    self.uyariOlustur(
-                        str(self.configGetir(base_warnings + "warning3")).format(
+                    show_in_console(
+                        str(get_config(base_warnings + "warning3")).format(
                             url=url), 2)
                     self.topluYorumYapma()
 
             if not yorumSayisi:
-                yorumSayisi = input(self.configGetir(base_inputs + "input2")).strip()
+                yorumSayisi = input(get_config(base_inputs + "input2")).strip()
                 self.anaMenuyeDonsunMu(yorumSayisi)
                 if yorumSayisi.isnumeric() and int(yorumSayisi) > 0:
                     yorumSayisi = int(yorumSayisi)
                     if self.yorumLimitiAsildiMi(yorumSayisi):
                         yorumSayisi = 50
-                        print(self.configGetir(base_warnings + "warning4"))
+                        print(get_config(base_warnings + "warning4"))
                 else:
-                    self.uyariOlustur(self.configGetir(base_warnings + "warning5"), 2)
+                    show_in_console(get_config(base_warnings + "warning5"), 2)
                     self.topluYorumYapma(url=url, yorumSayisi=None, secilenIslem=None)
 
             if not secilenIslem:
-                for secenek in self.configGetir(base_warnings + "warning6"):
-                    self.uyariOlustur(secenek, 3)
-                secilenIslem = str(input(self.configGetir(base_inputs + "input3")).strip())
+                for secenek in get_config(base_warnings + "warning6"):
+                    show_in_console(secenek, 3)
+                secilenIslem = str(input(get_config(base_inputs + "input3")).strip())
                 self.anaMenuyeDonsunMu(secilenIslem)
 
             if secilenIslem == "1":
-                self.uyariOlustur(self.configGetir(base_warnings + "warning7"), 1)
-                print(str(self.configGetir(base_warnings + "warning8")).format(url=url))
+                show_in_console(get_config(base_warnings + "warning7"), 1)
+                print(str(get_config(base_warnings + "warning8")).format(url=url))
                 for i in range(yorumSayisi):
                     yorum = self.rastgeleYorumGetir()
                     yorum = self.yorumUzunlukBelirle(yorum)
                     self.yorumYap(yorum)
-                    self.uyariOlustur(str(self.configGetir(base_warnings + "warning9")).format(index=i + 1), 1)
+                    show_in_console(str(get_config(base_warnings + "warning9")).format(index=i + 1), 1)
 
                     sleep(self.beklemeSuresiGetir(sleep1[0], sleep1[1]))
             elif secilenIslem == "2":
-                self.uyariOlustur(self.configGetir(base_warnings + "warning10"), 1)
+                show_in_console(get_config(base_warnings + "warning10"), 1)
                 dosya = self.dosyaSec()
                 yorumlar = self.dosyaİceriginiAl(dosya)
                 if self.dosyaİcerigiAlindiMi(yorumlar):
-                    print(str(self.configGetir(base_warnings + "warning11")).format(url=url))
+                    print(str(get_config(base_warnings + "warning11")).format(url=url))
                     for index, yorum in enumerate(yorumlar):
                         yorum = self.yorumUzunlukBelirle(yorum)
                         self.yorumYap(yorum)
-                        self.uyariOlustur(str(self.configGetir(base_warnings + "warning12")).format(index=index + 1), 1)
+                        show_in_console(str(get_config(base_warnings + "warning12")).format(index=index + 1), 1)
                         if (index + 1) == yorumSayisi:
                             break
                         sleep(self.beklemeSuresiGetir(sleep1[0], sleep1[1]))
                 else:
                     self.topluYorumYapma(url=url, yorumSayisi=yorumSayisi, secilenIslem=secilenIslem)
             else:
-                self.uyariOlustur(self.configGetir(base_warnings + "warning13"), 2)
+                show_in_console(get_config(base_warnings + "warning13"), 2)
                 print("")
                 self.topluYorumYapma(url=url, yorumSayisi=yorumSayisi, secilenIslem=None)
 
-            print(str(self.configGetir(base_warnings + "warning14")).format(url=url))
+            print(str(get_config(base_warnings + "warning14")).format(url=url))
             self.topluYorumYapma()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning15")).format(url=url, hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings + "warning15")).format(url=url, hata=str(error)), 2)
             self.topluYorumYapma()
 
     def takipEtmeyenleriTakiptenCik(self):
-        base_warnings = self.BASE_UYARI(metod=self.takipEtmeyenleriTakiptenCik, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.takipEtmeyenleriTakiptenCik, warnings=True)
         try:
-            print(self.configGetir(base_warnings + "warning1"))
+            print(get_config(base_warnings + "warning1"))
             takipciler = self.takipcileriGetir()
-            print(self.configGetir(base_warnings + "warning2"))
-            print(self.configGetir(base_warnings + "warning3"))
+            print(get_config(base_warnings + "warning2"))
+            print(get_config(base_warnings + "warning3"))
             self.takipEdilenleriGetir(takipciler=takipciler)
-            print(self.configGetir(base_warnings + "warning4"))
+            print(get_config(base_warnings + "warning4"))
             self.menu()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning5")).format(
+            show_in_console(str(get_config(base_warnings + "warning5")).format(
                 hata=str(error)), 2)
             self.menu()
 
     def topluMesajSilme(self):
-        base_warnings = self.BASE_UYARI(metod=self.topluMesajSilme, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.topluMesajSilme, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.topluMesajSilme)
         try:
 
-            print(self.configGetir(base_warnings+"warning1"))
+            print(get_config(base_warnings+"warning1"))
             self.kullaniciProfilineYonlendir('direct/inbox/')
             devamEtsinMi = True
             silinenMesajlar = set()
-            self.indexSifirla()
+            self.indexOne()
             while devamEtsinMi:
                 mesajListesi = self.driver.find_elements_by_css_selector("div.N9abW  a.rOtsg")
                 if len(mesajListesi) == 0:
-                    print(self.configGetir(base_warnings+"warning2"))
+                    print(get_config(base_warnings+"warning2"))
                     break
                 for mesaj in mesajListesi:
                     if mesaj not in silinenMesajlar:
                         silinenMesajlar.add(mesaj)
                         kullaniciAdi = mesaj.find_element_by_css_selector("._7UhW9.xLCgt.MMzan.KV-D4.fDxYl").text
-                        print(str(self.configGetir(base_warnings+"warning3")).format(index=self.index,kullanici=kullaniciAdi))
+                        print(str(get_config(base_warnings+"warning3")).format(index=self.index,kullanici=kullaniciAdi))
                         self.mesajSil(mesaj)
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning4")).format(index=self.index, kullanici=kullaniciAdi), 1)
-                        self.indexArtir()
-                        sleep1 = self.configGetir(base_sleep + "sleep1")
+                        show_in_console(str(get_config(base_warnings+"warning4")).format(index=self.index, kullanici=kullaniciAdi), 1)
+                        self.indexUp()
+                        sleep1 = get_config(base_sleep + "sleep1")
                         sleep(self.beklemeSuresiGetir(sleep1[0], sleep1[1]))
                     break
 
-            print(self.configGetir(base_warnings+"warning5"))
+            print(get_config(base_warnings+"warning5"))
             self.menu()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(hata=str(error)),2)
+            show_in_console(str(get_config(base_warnings+"warning6")).format(hata=str(error)),2)
             self.menu()
 
     def oneCikanHikayeIndir(self):
-        base_warnings = self.BASE_UYARI(metod=self.oneCikanHikayeIndir, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.oneCikanHikayeIndir, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.oneCikanHikayeIndir, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.oneCikanHikayeIndir, inputs=True)
         base_sleep = self.BASE_SLEEP(metod=self.oneCikanHikayeIndir)
 
         try:
-            url = input(self.configGetir(base_inputs+"input1")).strip()
+            url = input(get_config(base_inputs+"input1")).strip()
             self.anaMenuyeDonsunMu(url)
             self.urlGirildiMi(url=url,metod=self.oneCikanHikayeIndir)
             self.urlGecerliMi(url=url,metod=self.oneCikanHikayeIndir)
 
-            print(str(self.configGetir(base_warnings+"warning1")).format(url=url))
+            print(str(get_config(base_warnings+"warning1")).format(url=url))
             self.urlYonlendir(url)
 
             if not self.sayfaMevcutMu():
-                self.uyariOlustur(self.configGetir(base_warnings+"warning2"), 2)
+                show_in_console(get_config(base_warnings+"warning2"), 2)
                 self.oneCikanHikayeIndir()
 
-            print(str(self.configGetir(base_warnings+"warning3")).format(url=url))
+            print(str(get_config(base_warnings+"warning3")).format(url=url))
             btn_oynat = self.driver.find_element_by_css_selector("button._42FBe")
             btn_oynat.click()
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
             kullanici = self.driver.find_element_by_css_selector("a.FPmhX").get_attribute("title")
             self.klasorOlustur(kullanici)
-            self.indexSifirla()
+            self.indexOne()
             self.hikayeleriGetir()
             self.klasorDegistir("../")
-            print(str(self.configGetir(base_warnings+"warning4")).format(url=url))
+            print(str(get_config(base_warnings+"warning4")).format(url=url))
             self.oneCikanHikayeIndir()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning5")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning5")).format(hata=str(error)), 2)
             self.oneCikanHikayeIndir()
 
     def hikayeIndir(self, kullanici, secim):
-        base_warnings = self.BASE_UYARI(metod=self.hikayeIndir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.hikayeIndir, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.hikayeIndir)
 
         try:
@@ -479,66 +470,66 @@ class Instagram():
             if not self.hesapGizliMi():
                 if self.hikayeVarMi():
                     self.driver.find_element_by_css_selector("div.RR-M-").click()
-                    sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
-                    print(str(self.configGetir(base_warnings + "warning1")).format(
+                    sleep(get_config("{base}sleep1".format(base=base_sleep)))
+                    print(str(get_config(base_warnings + "warning1")).format(
                         kullanici=kullanici))
                     self.klasorOlustur(kullanici)
-                    self.indexSifirla()
+                    self.indexOne()
                     self.hikayeleriGetir()
                     self.klasorDegistir("../")
-                    print(str(self.configGetir(base_warnings + "warning2")).format(
+                    print(str(get_config(base_warnings + "warning2")).format(
                         kullanici=kullanici))
                 else:
-                    self.uyariOlustur(self.configGetir(base_warnings + "warning3"), 2)
+                    show_in_console(get_config(base_warnings + "warning3"), 2)
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings + "warning4")).format(
+                show_in_console(str(get_config(base_warnings + "warning4")).format(
                     kullanici=kullanici), 2)
             self.profilSec(secim)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning5")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings + "warning5")).format(hata=str(error)), 2)
             self.profilSec(secim)
 
     def gonderiKullaniciAdi(self):
         return self.driver.find_element_by_css_selector("a.sqdOP").text
 
     def gonderiIndir(self):
-        base_warnings = self.BASE_UYARI(metod=self.gonderiIndir, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.gonderiIndir, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.gonderiIndir, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.gonderiIndir, inputs=True)
         try:
-            url = input(self.configGetir(base_inputs + "input1")).strip()
+            url = input(get_config(base_inputs + "input1")).strip()
             self.anaMenuyeDonsunMu(url)
             self.urlGirildiMi(url=url, metod=self.gonderiIndir)
             self.urlGecerliMi(url=url, metod=self.gonderiIndir)
 
-            print(str(self.configGetir(base_warnings + "warning1")).format(url=url))
+            print(str(get_config(base_warnings + "warning1")).format(url=url))
             self.urlYonlendir(url)
             if not self.hesapGizliMi():
-                print(str(self.configGetir(base_warnings + "warning2")).format(url=url))
+                print(str(get_config(base_warnings + "warning2")).format(url=url))
                 kullanici = self.gonderiKullaniciAdi()
                 self.klasorOlustur(kullanici)
                 if self.gonderiAlbumMu():
-                    self.indexSifirla()
+                    self.indexOne()
                     self.klasorOlustur(str(self.index) + "_album")
-                    self.albumUrlGetir()
+                    self.getAlbumUrl()
                     self.klasorDegistir("../")
                 else:
                     [url, veriTuru] = self.gonderiUrlGetir()
                     if url is not None:
                         self.dosyaIndir(url, veriTuru)
-                print(str(self.configGetir(base_warnings + "warning3")).format(url=url))
+                print(str(get_config(base_warnings + "warning3")).format(url=url))
                 self.klasorDegistir("../")
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings + "warning4")).format(
+                show_in_console(str(get_config(base_warnings + "warning4")).format(
                     url=url), 2)
             self.gonderiIndir()
         except Exception as error:
             print(
-                self.uyariOlustur(str(self.configGetir(base_warnings + "warning5")).format(hata=error), 2))
+                show_in_console(str(get_config(base_warnings + "warning5")).format(hata=error), 2))
             self.gonderiIndir()
 
     def kullaniciTakipcileriniTakipEt(self, kullanici, secim, secilenIslem=None):
-        base_warnings = self.BASE_UYARI(metod=self.kullaniciTakipcileriniTakipEt, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.kullaniciTakipcileriniTakipEt, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.kullaniciTakipcileriniTakipEt, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.kullaniciTakipcileriniTakipEt, inputs=True)
         base_sleep = self.BASE_SLEEP(metod=self.kullaniciTakipcileriniTakipEt)
 
         try:
@@ -546,32 +537,32 @@ class Instagram():
             hedefTakipciSayisi = None
 
             if secilenIslem is None:
-                for secenek in self.configGetir(base_warnings + "warning1"):
-                    self.uyariOlustur(secenek, 3)
-                secilenIslem = str(input(self.configGetir(base_inputs + "input1")).strip())
+                for secenek in get_config(base_warnings + "warning1"):
+                    show_in_console(secenek, 3)
+                secilenIslem = str(input(get_config(base_inputs + "input1")).strip())
                 self.anaMenuyeDonsunMu(secilenIslem)
 
             if secilenIslem == "1":
-                self.uyariOlustur(self.configGetir(base_warnings + "warning2"), 1)
+                show_in_console(get_config(base_warnings + "warning2"), 1)
             elif secilenIslem == "2":
-                self.uyariOlustur(self.configGetir(base_warnings + "warning3"), 1)
-                hedefTakipciSayisi = input(self.configGetir(base_inputs + "input2")).strip()
+                show_in_console(get_config(base_warnings + "warning3"), 1)
+                hedefTakipciSayisi = input(get_config(base_inputs + "input2")).strip()
                 self.anaMenuyeDonsunMu(hedefTakipciSayisi)
                 if hedefTakipciSayisi.isnumeric():
                     hedefTakipciSayisi = int(hedefTakipciSayisi)
                 else:
-                    self.uyariOlustur(self.configGetir(base_warnings + "warning4"), 2)
+                    show_in_console(get_config(base_warnings + "warning4"), 2)
                     print("")
                     self.kullaniciTakipcileriniTakipEt(kullanici=kullanici,secim= secim, secilenIslem=secilenIslem)
             else:
-                self.uyariOlustur(self.configGetir(base_warnings + "warning5"), 2)
+                show_in_console(get_config(base_warnings + "warning5"), 2)
                 print("")
                 self.kullaniciTakipcileriniTakipEt(kullanici=kullanici,secim= secim, secilenIslem=None)
 
             if not self.hesapGizliMi():
-                print(str(self.configGetir(base_warnings + "warning6")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings + "warning6")).format(kullanici=kullanici))
                 devamEtsinMi = True
-                self.indexSifirla()
+                self.indexOne()
 
                 if hedefTakipciSayisi is None:
                     takipciSayisi = self.driver.find_elements_by_css_selector("a.-nal3 > span.g47SY")[0].get_attribute(
@@ -585,7 +576,7 @@ class Instagram():
 
                 btn_takipciler = self.takipcilerButon()
                 btn_takipciler.click()
-                sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                sleep(get_config("{base}sleep1".format(base=base_sleep)))
                 kontrolEdilenKullanicilar = set()
                 while devamEtsinMi:
                     dialog_popup = self.driver.find_element_by_css_selector('div._1XyCr')
@@ -596,14 +587,14 @@ class Instagram():
                         try:
                             btn_takip = takipci.find_element_by_css_selector('button.sqdOP')
                             if btn_takip.text == "Follow":
-                                print(str(self.configGetir(base_warnings + "warning7")).format(
+                                print(str(get_config(base_warnings + "warning7")).format(
                                     index=self.index, kullanici=takipciKullaniciAdi))
                                 btn_takip.click()
-                                self.indexArtir()
+                                self.indexUp()
                                 if self.index-1  >= takipciSayisi:
                                     devamEtsinMi = False
                                     break
-                                sleep2 = self.configGetir("{base}sleep2".format(base=base_sleep))
+                                sleep2 = get_config("{base}sleep2".format(base=base_sleep))
                                 sleep(self.beklemeSuresiGetir(sleep2[0], sleep2[1]))
                         except:
                             pass
@@ -617,15 +608,15 @@ class Instagram():
 
                     if devamEtsinMi:
                         self.popupAsagiKaydir(secici='div[role="dialog"] .isgrP')
-                        sleep(self.configGetir("{base}sleep3".format(base=base_sleep)))
-                print(str(self.configGetir(base_warnings + "warning8")).format(kullanici=kullanici))
+                        sleep(get_config("{base}sleep3".format(base=base_sleep)))
+                print(str(get_config(base_warnings + "warning8")).format(kullanici=kullanici))
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings + "warning9")).format(kullanici=kullanici),
+                show_in_console(str(get_config(base_warnings + "warning9")).format(kullanici=kullanici),
                                   2)
             self.profilSec(secim)
         except Exception as error:
-            self.uyariOlustur(
-                str(self.configGetir(base_warnings + "warning10")).format(kullanici=kullanici, hata=str(error)), 2)
+            show_in_console(
+                str(get_config(base_warnings + "warning10")).format(kullanici=kullanici, hata=str(error)), 2)
             self.profilSec(secim)
 
     def kullaniciListesiTakipEt(self,secim):
@@ -638,48 +629,48 @@ class Instagram():
         self.kullaniciListesiTakipEt(secim)
 
     def gonderiBegenenleriTakipEt(self, url=None,secilenIslem=None):
-        base_warnings = self.BASE_UYARI(metod=self.gonderiBegenenleriTakipEt, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.gonderiBegenenleriTakipEt, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.gonderiBegenenleriTakipEt, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.gonderiBegenenleriTakipEt, inputs=True)
         base_sleep = self.BASE_SLEEP(metod=self.gonderiBegenenleriTakipEt)
         try:
             if url is None:
-                url = input(self.configGetir(base_inputs+"input1")).strip()
+                url = input(get_config(base_inputs+"input1")).strip()
                 self.anaMenuyeDonsunMu(url)
                 self.urlGirildiMi(url=url,metod=self.gonderiBegenenleriTakipEt)
                 self.urlGecerliMi(url=url,metod=self.gonderiBegenenleriTakipEt)
-                print(str(self.configGetir(base_warnings+"warning1")).format(url=url))
+                print(str(get_config(base_warnings+"warning1")).format(url=url))
                 self.urlYonlendir(url)
 
             hedefBegenenSayisi = None
 
             if secilenIslem is None:
-                for secenek in self.configGetir(base_warnings + "warning2"):
-                    self.uyariOlustur(secenek,3)
-                secilenIslem = str(input(self.configGetir(base_inputs+"input2")).strip())
+                for secenek in get_config(base_warnings + "warning2"):
+                    show_in_console(secenek,3)
+                secilenIslem = str(input(get_config(base_inputs+"input2")).strip())
                 self.anaMenuyeDonsunMu(secilenIslem)
 
             if secilenIslem == "1":
-                self.uyariOlustur(self.configGetir(base_warnings+"warning3"), 1)
+                show_in_console(get_config(base_warnings+"warning3"), 1)
             elif secilenIslem == "2":
-                self.uyariOlustur(self.configGetir(base_warnings+"warning4"), 1)
-                hedefBegenenSayisi = input(self.configGetir(base_inputs+"input3")).strip()
+                show_in_console(get_config(base_warnings+"warning4"), 1)
+                hedefBegenenSayisi = input(get_config(base_inputs+"input3")).strip()
                 self.anaMenuyeDonsunMu(hedefBegenenSayisi)
                 if hedefBegenenSayisi.isnumeric():
                     hedefBegenenSayisi = int(hedefBegenenSayisi)
                 else:
-                    self.uyariOlustur(self.configGetir(base_warnings+"warning5"), 2)
+                    show_in_console(get_config(base_warnings+"warning5"), 2)
                     print("")
                     self.gonderiBegenenleriTakipEt(url=url,secilenIslem=secilenIslem)
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning6"), 2)
+                show_in_console(get_config(base_warnings+"warning6"), 2)
                 print("")
                 self.gonderiBegenenleriTakipEt(url=url,secilenIslem=None)
 
             if not self.hesapGizliMi():
                 if not self.gonderiTipiVideoMu():
-                    print(str(self.configGetir(base_warnings+"warning7")).format(url=url))
+                    print(str(get_config(base_warnings+"warning7")).format(url=url))
                     devamEtsinMi = True
-                    self.indexSifirla()
+                    self.indexOne()
 
 
                     if hedefBegenenSayisi is None:
@@ -694,7 +685,7 @@ class Instagram():
 
                     btn_begenenler = self.driver.find_element_by_css_selector("div.Nm9Fw > button.sqdOP")
                     btn_begenenler.click()
-                    sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                    sleep(get_config("{base}sleep1".format(base=base_sleep)))
                     kontrolEdilenKullanicilar=set()
                     while devamEtsinMi:
                         dialog_popup = self.driver.find_element_by_css_selector("div.pbNvD")
@@ -705,14 +696,14 @@ class Instagram():
                             begenenKullaniciAdi = begenenKullaniciAdi.replace(self.BASE_URL, '').replace('/', '')
                             btn_takip = begenenKullanici.find_element_by_css_selector("div.Igw0E > button.sqdOP")
                             if btn_takip.text == "Follow":
-                                print(str(self.configGetir(base_warnings+"warning8")).format(
+                                print(str(get_config(base_warnings+"warning8")).format(
                                     index=self.index, kullanici=begenenKullaniciAdi))
                                 btn_takip.click()
-                                self.indexArtir()
+                                self.indexUp()
                                 if self.index-1 >= begenenSayisi:
                                     devamEtsinMi = False
                                     break
-                                sleep2=self.configGetir("{base}sleep2".format(base=base_sleep))
+                                sleep2=get_config("{base}sleep2".format(base=base_sleep))
                                 sleep(self.beklemeSuresiGetir(sleep2[0],sleep2[1]))
 
                             kontrolEdilenKullanicilar.add(begenenKullaniciAdi)
@@ -727,23 +718,23 @@ class Instagram():
                                     break
                         if devamEtsinMi:
                             self.popupAsagiKaydir(secici='div[role="dialog"]  .i0EQd > div:nth-child(1)')
-                            sleep(self.configGetir("{base}sleep3".format(base=base_sleep)))
+                            sleep(get_config("{base}sleep3".format(base=base_sleep)))
                         else:
-                            print(self.configGetir(base_warnings+"warning9"))
+                            print(get_config(base_warnings+"warning9"))
                 else:
-                    print(str(self.configGetir(base_warnings+"warning10")).format(
+                    print(str(get_config(base_warnings+"warning10")).format(
                         url=url))
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning11")).format(url=url),
+                show_in_console(str(get_config(base_warnings+"warning11")).format(url=url),
                                   2)
             self.gonderiBegenenleriTakipEt()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning12")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning12")).format(hata=str(error)), 2)
             self.gonderiBegenenleriTakipEt()
 
-    def etiketeGoreTakipEtme(self):
-        base_warnings = self.BASE_UYARI(metod=self.etiketeGoreTakipEtme, warnings=True)
-        base_sleep = self.BASE_SLEEP(metod=self.etiketeGoreTakipEtme)
+    def followUsersByTag(self):
+        base_warnings = self.BASE_TRANSLATE(metod=self.followUsersByTag, warnings=True)
+        base_sleep = self.BASE_SLEEP(metod=self.followUsersByTag)
         try:
             etiket = self.etiketGetir()
 
@@ -753,38 +744,38 @@ class Instagram():
                 self.metindenKarakterSil(self.driver.find_element_by_css_selector("span.g47SY").text, ','))
             limit = self.hedefKaynaktanBuyukMu(limit, kaynakGonderiSayisi)
             self.ilkGonderiTikla()
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
-            self.indexSifirla()
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
+            self.indexOne()
 
-            print(str(self.configGetir(base_warnings+"warning1")).format(etiket=etiket))
+            print(str(get_config(base_warnings+"warning1")).format(etiket=etiket))
             while True:
                 kullaniciAdi =self.driver.find_element_by_css_selector("div.e1e1d a.sqdOP").text
                 btn_takip = self.driver.find_element_by_css_selector("div.bY2yH >button.sqdOP")
                 if btn_takip.text != "Following":
                     btn_takip.click()
-                    self.uyariOlustur(
-                        str(self.configGetir(base_warnings+"warning2")).format(index=self.index,
+                    show_in_console(
+                        str(get_config(base_warnings+"warning2")).format(index=self.index,
                                                                                kullanici=kullaniciAdi), 1)
-                    self.indexArtir()
+                    self.indexUp()
                     if self.index-1 >= limit:
                         break
-                    sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+                    sleep(get_config("{base}sleep2".format(base=base_sleep)))
                     self.gonderiIlerlet()
-                    sleep3=self.configGetir("{base}sleep3".format(base=base_sleep))
+                    sleep3=get_config("{base}sleep3".format(base=base_sleep))
                     sleep(self.beklemeSuresiGetir(sleep3[0],sleep3[1]))
                 else:
-                    print(str(self.configGetir(base_warnings+"warning3")).format(kullanici=kullaniciAdi))
+                    print(str(get_config(base_warnings+"warning3")).format(kullanici=kullaniciAdi))
                     self.gonderiIlerlet()
-                    sleep(self.configGetir("{base}sleep4".format(base=base_sleep)))
-            print(str(self.configGetir(base_warnings+"warning4")).format(etiket=etiket))
-            self.etiketeGoreTakipEtme()
+                    sleep(get_config("{base}sleep4".format(base=base_sleep)))
+            print(str(get_config(base_warnings+"warning4")).format(etiket=etiket))
+            self.followUsersByTag()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning5")).format(hata=str(error)), 2)
-            self.etiketeGoreTakipEtme()
+            show_in_console(str(get_config(base_warnings+"warning5")).format(hata=str(error)), 2)
+            self.followUsersByTag()
 
-    def etiketeGoreBegenme(self):
-        base_warnings = self.BASE_UYARI(metod=self.etiketeGoreBegenme, warnings=True)
-        base_sleep = self.BASE_SLEEP(metod=self.etiketeGoreBegenme)
+    def commentPostsByTag(self):
+        base_warnings = self.BASE_TRANSLATE(metod=self.likingPostsByTag, warnings=True)
+        base_sleep = self.BASE_SLEEP(metod=self.likingPostsByTag)
         try:
             etiket = self.etiketGetir()
             limit = self.etiketeGoreIslemLimitiGetir(1)
@@ -792,163 +783,200 @@ class Instagram():
                 self.metindenKarakterSil(self.driver.find_element_by_css_selector("span.g47SY").text, ','))
             limit = self.hedefKaynaktanBuyukMu(limit, kaynakGonderiSayisi)
             self.ilkGonderiTikla()
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
-            self.indexSifirla()
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
+            self.indexOne()
 
-            print(str(self.configGetir(base_warnings+"warning1")).format(etiket=etiket))
+            print(str(get_config(base_warnings+"warning1")).format(etiket=etiket))
             while True:
                 btn_begen = self.begenButon()
                 begeniDurum = self.begenButonuDurumGetir(btn_begen)
                 if begeniDurum != "unlike":
                     btn_begen.click()
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(index=self.index,url=self.driver.current_url),1)
-                    self.indexArtir()
+                    show_in_console(str(get_config(base_warnings+"warning2")).format(index=self.index,url=self.driver.current_url),1)
+                    self.indexUp()
                     if self.index-1 >= limit:
                         break
-                    sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+                    sleep(get_config("{base}sleep2".format(base=base_sleep)))
                     self.gonderiIlerlet()
-                    sleep3=self.configGetir("{base}sleep3".format(base=base_sleep))
+                    sleep3=get_config("{base}sleep3".format(base=base_sleep))
                     sleep(self.beklemeSuresiGetir(sleep3[0],sleep3[1]))
                 else:
-                    print(str(self.configGetir(base_warnings+"warning3")).format(url=self.driver.current_url))
+                    print(str(get_config(base_warnings+"warning3")).format(url=self.driver.current_url))
                     self.gonderiIlerlet()
-                    sleep(self.configGetir("{base}sleep4".format(base=base_sleep)))
-            print(str(self.configGetir(base_warnings+"warning4")).format(etiket=etiket))
-            self.etiketeGoreBegenme()
+                    sleep(get_config("{base}sleep4".format(base=base_sleep)))
+            print(str(get_config(base_warnings+"warning4")).format(etiket=etiket))
+            self.likingPostsByTag()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning5")).format(hata=str(error)), 2)
-            self.etiketeGoreBegenme()
+            show_in_console(str(get_config(base_warnings+"warning5")).format(hata=str(error)), 2)
+            self.likingPostsByTag()
+
+    def likingPostsByTag(self):
+        base_warnings = self.BASE_TRANSLATE(metod=self.likingPostsByTag, warnings=True)
+        base_sleep = self.BASE_SLEEP(metod=self.likingPostsByTag)
+        try:
+            etiket = self.etiketGetir()
+            limit = self.etiketeGoreIslemLimitiGetir(1)
+            kaynakGonderiSayisi = int(
+                self.metindenKarakterSil(self.driver.find_element_by_css_selector("span.g47SY").text, ','))
+            limit = self.hedefKaynaktanBuyukMu(limit, kaynakGonderiSayisi)
+            self.ilkGonderiTikla()
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
+            self.indexOne()
+
+            print(str(get_config(base_warnings+"warning1")).format(etiket=etiket))
+            while True:
+                btn_begen = self.begenButon()
+                begeniDurum = self.begenButonuDurumGetir(btn_begen)
+                if begeniDurum != "unlike":
+                    btn_begen.click()
+                    show_in_console(str(get_config(base_warnings+"warning2")).format(index=self.index,url=self.driver.current_url),1)
+                    self.indexUp()
+                    if self.index-1 >= limit:
+                        break
+                    sleep(get_config("{base}sleep2".format(base=base_sleep)))
+                    self.gonderiIlerlet()
+                    sleep3=get_config("{base}sleep3".format(base=base_sleep))
+                    sleep(self.beklemeSuresiGetir(sleep3[0],sleep3[1]))
+                else:
+                    print(str(get_config(base_warnings+"warning3")).format(url=self.driver.current_url))
+                    self.gonderiIlerlet()
+                    sleep(get_config("{base}sleep4".format(base=base_sleep)))
+            print(str(get_config(base_warnings+"warning4")).format(etiket=etiket))
+            self.likingPostsByTag()
+        except Exception as error:
+            show_in_console(str(get_config(base_warnings+"warning5")).format(hata=str(error)), 2)
+            self.likingPostsByTag()
 
     def gonderiBegen(self, durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.gonderiBegen, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.gonderiBegen, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.gonderiBegen, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.gonderiBegen, inputs=True)
 
         try:
             if durum:
-                url = input(self.configGetir(base_inputs+"input1")).strip()
+                url = input(get_config(base_inputs+"input1")).strip()
             else:
-                url = input(self.configGetir(base_inputs+"input2")).strip()
+                url = input(get_config(base_inputs+"input2")).strip()
 
             self.anaMenuyeDonsunMu(url)
             self.urlGirildiMi(url=url, metod=self.gonderiBegen,metodDeger=durum)
             self.urlGecerliMi(url=url,metod=self.gonderiBegen,metodDeger=durum)
-            print(str(self.configGetir(base_warnings+"warning1")).format(url=url))
+            print(str(get_config(base_warnings+"warning1")).format(url=url))
             self.urlYonlendir(url)
             if not self.hesapGizliMi():
                 if durum:
-                    print(str(self.configGetir(base_warnings+"warning2")).format(url=url))
+                    print(str(get_config(base_warnings+"warning2")).format(url=url))
                 else:
-                    print(str(self.configGetir(base_warnings+"warning3")).format(url=url))
+                    print(str(get_config(base_warnings+"warning3")).format(url=url))
                 btn_begen = self.begenButon()
                 begeniDurum = self.begenButonuDurumGetir(btn_begen)
                 if durum:
                     if begeniDurum == "like":
                         btn_begen.click()
                         print(
-                            self.uyariOlustur(str(self.configGetir(base_warnings+"warning4")).format(url=self.driver.current_url),
+                            show_in_console(str(get_config(base_warnings+"warning4")).format(url=self.driver.current_url),
                                               1))
                     else:
-                        print(str(self.configGetir(base_warnings+"warning5")).format(url=self.driver.current_url))
+                        print(str(get_config(base_warnings+"warning5")).format(url=self.driver.current_url))
                 else:
                     if begeniDurum == "unlike":
                         btn_begen.click()
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(url=self.driver.current_url), 1)
+                        show_in_console(str(get_config(base_warnings+"warning6")).format(url=self.driver.current_url), 1)
                     else:
-                        print(str(self.configGetir(base_warnings + "warning7")).format(url=self.driver.current_url))
+                        print(str(get_config(base_warnings + "warning7")).format(url=self.driver.current_url))
                 if durum:
-                    print(str(self.configGetir(base_warnings+"warning8")).format(url=url))
+                    print(str(get_config(base_warnings+"warning8")).format(url=url))
                 else:
-                    print(str(self.configGetir(base_warnings+"warning9")).format(url=url))
+                    print(str(get_config(base_warnings+"warning9")).format(url=url))
             else:
                 if durum:
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning10")).format(
+                    show_in_console(str(get_config(base_warnings+"warning10")).format(
                         url=url), 2)
                 else:
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning11")).format(
+                    show_in_console(str(get_config(base_warnings+"warning11")).format(
                         url=url), 2)
             self.gonderiBegen(durum)
         except Exception as error:
             if durum:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning12")).format(hata=error),2)
+                show_in_console(str(get_config(base_warnings+"warning12")).format(hata=error),2)
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning13")).format(hata=error), 2)
+                show_in_console(str(get_config(base_warnings+"warning13")).format(hata=error), 2)
             self.gonderiBegen(durum)
 
-    def gonderiYorumYapma(self, url=None, yorum=None):
-        base_warnings = self.BASE_UYARI(metod=self.gonderiYorumYapma, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.gonderiYorumYapma, inputs=True)
+    def commentingPost(self, url=None, yorum=None):
+        base_warnings = self.BASE_TRANSLATE(metod=self.commentingPost, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.commentingPost, inputs=True)
         try:
 
             if url is None:
-                url = input(self.configGetir(base_inputs+"input1")).strip()
+                url = input(get_config(base_inputs+"input1")).strip()
                 self.anaMenuyeDonsunMu(url)
             if not yorum:
-                yorum = input(self.configGetir(base_inputs+"input2")).strip()
+                yorum = input(get_config(base_inputs+"input2")).strip()
                 self.anaMenuyeDonsunMu(yorum)
 
 
-            self.urlGirildiMi(url=url,metod=self.gonderiYorumYapma,metodDeger=yorum)
-            self.urlGecerliMi(url=url,metod=self.gonderiYorumYapma,metodDeger=yorum)
+            self.urlGirildiMi(url=url,metod=self.commentingPost,metodDeger=yorum)
+            self.urlGecerliMi(url=url,metod=self.commentingPost,metodDeger=yorum)
 
 
-            if not self.degerVarMi(yorum):
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"), 2)
-                self.gonderiYorumYapma(url=url, yorum=None)
+            if not self.checkLength(yorum):
+                show_in_console(get_config(base_warnings+"warning1"), 2)
+                self.commentingPost(url=url, yorum=None)
 
-            print(str(self.configGetir(base_warnings+"warning2")).format(url=url))
+            print(str(get_config(base_warnings+"warning2")).format(url=url))
             self.urlYonlendir(url)
 
             if not self.sayfaMevcutMu():
-                self.uyariOlustur(self.configGetir(base_warnings+"warning3"), 2)
-                self.gonderiYorumYapma()
+                show_in_console(get_config(base_warnings+"warning3"), 2)
+                self.commentingPost()
 
             if not self.hesapGizliMi():
                 yorum = yorum[0:250]
-                print(str(self.configGetir(base_warnings+"warning4")).format(url=url))
+                print(str(get_config(base_warnings+"warning4")).format(url=url))
                 self.yorumYap(yorum)
-                print(str(self.configGetir(base_warnings+"warning5")).format(url=url))
+                print(str(get_config(base_warnings+"warning5")).format(url=url))
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(url=url), 2)
-            self.gonderiYorumYapma()
+                show_in_console(str(get_config(base_warnings+"warning6")).format(url=url), 2)
+            self.commentingPost()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning7")).format(url=url,hata=str(error)),
+            show_in_console(str(get_config(base_warnings+"warning7")).format(url=url,hata=str(error)),
                               2)
-            self.gonderiYorumYapma()
+            self.commentingPost()
 
     def kullaniciTakipEt(self, kullanici, secim,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.kullaniciTakipEt, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.kullaniciTakipEt, warnings=True)
         try:
             self.kullaniciProfilineYonlendir(kullanici)
             if durum:
-                print(str(self.configGetir(base_warnings+"warning1")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning1")).format(kullanici=kullanici))
             else:
-                print(str(self.configGetir(base_warnings+"warning2")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning2")).format(kullanici=kullanici))
 
 
             self.kullaniciTakipDurumDegistir(kullanici=kullanici,durum=durum)
             if durum:
-                print(str(self.configGetir(base_warnings+"warning3")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning3")).format(kullanici=kullanici))
             else:
-                print(str(self.configGetir(base_warnings+"warning4")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning4")).format(kullanici=kullanici))
             if secim != 13:
                 self.profilSec(secim)
         except Exception as error:
             if durum:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning5")).format(kullanici=kullanici,hata=str(error)),2)
+                show_in_console(str(get_config(base_warnings+"warning5")).format(kullanici=kullanici,hata=str(error)),2)
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(kullanici=kullanici,
+                show_in_console(str(get_config(base_warnings+"warning6")).format(kullanici=kullanici,
                                                                                          hata=str(error)), 2)
             if secim != 13:
                 self.profilSec(secim)
 
     def kullaniciEngelle(self, kullanici, secim,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.kullaniciEngelle, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.kullaniciEngelle, warnings=True)
         try:
             self.kullaniciProfilineYonlendir(kullanici)
             if durum:
-                print(str(self.configGetir(base_warnings+"warning1")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning1")).format(kullanici=kullanici))
             else:
-                print(str(self.configGetir(base_warnings+"warning2")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning2")).format(kullanici=kullanici))
 
             if self.hesapGizliMi():
                 btnText = str(self.driver.find_element_by_css_selector('div.BY3EC >button').text).lower()
@@ -956,46 +984,46 @@ class Instagram():
                     if btnText!="unblock":
                         self.kullaniciEngelDurumDegistir()
                     else:
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning3")).format(kullanici=kullanici), 2)
+                        show_in_console(str(get_config(base_warnings+"warning3")).format(kullanici=kullanici), 2)
                 else:
                     if btnText=="unblock":
                         self.kullaniciEngelDurumDegistir()
                     else:
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning4")).format(kullanici=kullanici), 2)
+                        show_in_console(str(get_config(base_warnings+"warning4")).format(kullanici=kullanici), 2)
             else:
                 btnText =str(self.driver.find_element_by_css_selector('span.vBF20 > button._5f5mN').text).lower()
                 if durum:
                     if btnText != "unblock":
                         self.kullaniciEngelDurumDegistir()
                     else:
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning5")).format(kullanici=kullanici), 2)
+                        show_in_console(str(get_config(base_warnings+"warning5")).format(kullanici=kullanici), 2)
                 else:
                     if btnText == "unblock":
                         self.kullaniciEngelDurumDegistir()
                     else:
-                        self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(kullanici=kullanici), 2)
+                        show_in_console(str(get_config(base_warnings+"warning6")).format(kullanici=kullanici), 2)
 
             if durum:
-                print(str(self.configGetir(base_warnings+"warning7")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning7")).format(kullanici=kullanici))
             else:
-                print(str(self.configGetir(base_warnings+"warning8")).format(kullanici=kullanici))
+                print(str(get_config(base_warnings+"warning8")).format(kullanici=kullanici))
             self.profilSec(secim)
         except Exception as error:
             if durum:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning9")).format(kullanici=kullanici,hata=str(error)),2)
+                show_in_console(str(get_config(base_warnings+"warning9")).format(kullanici=kullanici,hata=str(error)),2)
             else:
-                self.uyariOlustur(str(self.configGetir(base_warnings+"warning10")).format(kullanici=kullanici,hata=str(error)), 2)
+                show_in_console(str(get_config(base_warnings+"warning10")).format(kullanici=kullanici,hata=str(error)), 2)
             self.profilSec(secim)
 
     def ayarlar(self,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.ayarlar, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.ayarlar,inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.ayarlar, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.ayarlar,inputs=True)
         try:
             if durum:
-                ayarlar=self.configGetir("{base}ana_ekran.secenekler".format(base=self.BASE_AYARLAR()))
+                ayarlar=get_config("{base}ana_ekran.secenekler".format(base=self.BASE_AYARLAR()))
                 for secenek in ayarlar:
-                    self.uyariOlustur(secenek,3)
-            secilenIslem=input(self.configGetir(base_inputs+"input1"))
+                    show_in_console(secenek,3)
+            secilenIslem=input(get_config(base_inputs+"input1"))
 
             if secilenIslem=="1":
                 self.dilAyarlari()
@@ -1004,54 +1032,40 @@ class Instagram():
             elif secilenIslem=="3":
                 self.menu()
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"), 2)
+                show_in_console(get_config(base_warnings+"warning1"), 2)
                 self.ayarlar(durum=False)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)),2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)),2)
 
     def oturumKapat(self):
-        base_warnings = self.BASE_UYARI(metod=self.oturumKapat, warnings=True)
-        print(self.configGetir(base_warnings+"warning1"))
+        base_warnings = self.BASE_TRANSLATE(metod=self.oturumKapat, warnings=True)
+        print(get_config(base_warnings+"warning1"))
         try:
             self.driver.find_elements_by_css_selector("div._47KiJ > div.Fifk5")[-1].click()
             sleep(0.10)
             self.driver.find_elements_by_css_selector("div.-qQT3")[-1].click()
-            self.uyariOlustur(self.configGetir(base_warnings+"warning2"), 1)
+            show_in_console(get_config(base_warnings+"warning2"), 1)
             self.driver.get(self.BASE_URL + 'accounts/login/')
-            self.girisYapildimi = False
-            self.girisYap()
+            self.authStatus = False
+            auth_login()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning3")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning3")).format(hata=str(error)), 2)
             self.menu()
 
     def quit(self):
-        base_warnings = self.BASE_UYARI(metod=self.quit, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.quit, warnings=True)
         try:
-            print(self.configGetir(base_warnings+"warning1"))
+            print(get_config(base_warnings+"warning1"))
             self.driver.quit()
-            self.uyariOlustur(self.configGetir(base_warnings+"warning2"), 1)
+            show_in_console(get_config(base_warnings+"warning2"), 1)
             exit()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning3")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning3")).format(hata=str(error)), 2)
             self.driver.quit()
             exit()
 
-    def ayarlarYukle(self):
-        if self.dosyaMevcutMu("config.json"):
-            with open('config.json', 'r+', encoding="utf-8") as dosya:
-                self.config = json.load(dosya)
-        else:
-            self.uyariOlustur("Config file is missing - Config dosyası eksik !",2)
-            exit()
-
-    def configGetir(self,anahtar):
-        deger=self.config
-        for key in anahtar.split('.'):
-            deger = deger[key]
-        return deger
-
-    def dilYukle(self):
-        self.dil=self.configGetir("language")
+    def getLanguage(self):
+        self.dil=get_config("language")
 
     def dilGetir(self):
         if self.dil=="tr":
@@ -1060,17 +1074,17 @@ class Instagram():
             return "English"
 
     def dilAyarlari(self,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.dilAyarlari, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.dilAyarlari,inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.dilAyarlari, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.dilAyarlari,inputs=True)
         try:
             if durum:
-                ayarlar=self.configGetir("{base}dil_ayarlari.secenekler".format(base=self.BASE_AYARLAR()))
+                ayarlar=get_config("{base}dil_ayarlari.secenekler".format(base=self.BASE_AYARLAR()))
                 for secenek in ayarlar:
                     if "{dil}" in secenek:
-                        self.uyariOlustur(str(secenek).format(dil=self.dilGetir()),3)
+                        show_in_console(str(secenek).format(dil=self.dilGetir()),3)
                     else:
-                        self.uyariOlustur(secenek, 3)
-            secilenIslem=input(self.configGetir(base_inputs+"input1"))
+                        show_in_console(secenek, 3)
+            secilenIslem=input(get_config(base_inputs+"input1"))
 
             if secilenIslem=="1":
                 self.dilSec()
@@ -1079,25 +1093,25 @@ class Instagram():
             elif secilenIslem=="3":
                 self.menu()
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"),2)
+                show_in_console(get_config(base_warnings+"warning1"),2)
                 self.dilAyarlari(durum=False)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)),2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)),2)
 
     def tarayiciAyarlari(self,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.tarayiciAyarlari, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.tarayiciAyarlari,inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.tarayiciAyarlari, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.tarayiciAyarlari,inputs=True)
         try:
             if durum:
-                ayarlar=self.configGetir("{base}tarayici_ayarlari.secenekler".format(base=self.BASE_AYARLAR()))
+                ayarlar=get_config("{base}tarayici_ayarlari.secenekler".format(base=self.BASE_AYARLAR()))
                 for secenek in ayarlar:
                     if "{path}" in secenek:
-                        self.uyariOlustur(str(secenek).format(path=self.tarayiciPathGetir()),3)
+                        show_in_console(str(secenek).format(path=self.tarayiciPathGetir()),3)
                     elif "{durum}" in secenek:
-                        self.uyariOlustur(str(secenek).format(durum=self.tarayiciHeadlessGetir()), 3)
+                        show_in_console(str(secenek).format(durum=self.tarayiciHeadlessGetir()), 3)
                     else:
-                        self.uyariOlustur(secenek, 3)
-            secilenIslem=input(self.configGetir(base_inputs+"input1"))
+                        show_in_console(secenek, 3)
+            secilenIslem=input(get_config(base_inputs+"input1"))
 
             if secilenIslem=="1":
                 self.tarayiciGorunmeDurumuAyarlari()
@@ -1108,13 +1122,13 @@ class Instagram():
             elif secilenIslem=="4":
                 self.menu()
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"),2)
+                show_in_console(get_config(base_warnings+"warning1"),2)
                 self.tarayiciAyarlari(durum=False)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings + "warning2")).format(hata=str(error)), 2)
 
     def tarayiciHeadlessGetir(self):
-        headless=self.configGetir("headless")
+        headless=get_config("headless")
         durum=None
         if headless=="true":
             if self.dil=="tr":
@@ -1129,14 +1143,14 @@ class Instagram():
         return durum
 
     def dilSec(self,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.dilSec, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.dilSec,inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.dilSec, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.dilSec,inputs=True)
         try:
             if durum:
-                ayarlar=self.configGetir("{base}dil_ayarlari.dil_degistir.secenekler".format(base=self.BASE_AYARLAR()))
+                ayarlar=get_config("{base}dil_ayarlari.dil_degistir.secenekler".format(base=self.BASE_AYARLAR()))
                 for secenek in ayarlar:
-                    self.uyariOlustur(secenek,3)
-            secilenIslem=input(self.configGetir(base_inputs+"input1"))
+                    show_in_console(secenek,3)
+            secilenIslem=input(get_config(base_inputs+"input1"))
 
             if secilenIslem in ["1","2"]:
                 self.uygulamaDilDegistir(dilNo=secilenIslem)
@@ -1148,13 +1162,13 @@ class Instagram():
             elif secilenIslem=="5":
                 self.menu()
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"),2)
+                show_in_console(get_config(base_warnings+"warning1"),2)
                 self.dilSec(durum=False)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings + "warning2")).format(hata=str(error)), 2)
 
     def uygulamaDilDegistir(self,dilNo):
-        base_warnings = self.BASE_UYARI(metod=self.uygulamaDilDegistir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.uygulamaDilDegistir, warnings=True)
         try:
             if dilNo=="1":
                 dil="tr"
@@ -1166,9 +1180,9 @@ class Instagram():
                 dosya.seek(0)
                 json.dump(veri, dosya, indent=4,ensure_ascii=False)
                 dosya.truncate()
-            self.uyariOlustur(self.configGetir(base_warnings+"warning1"),1)
+            show_in_console(get_config(base_warnings+"warning1"),1)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)), 2)
 
     def tarayiciThreadOlustur(self):
         t1 = threading.Thread(target=self.tarayiciBaslat)
@@ -1177,21 +1191,21 @@ class Instagram():
 
 
     def tarayiciBaslat(self):
-        base_warnings = self.BASE_UYARI(metod=self.tarayiciBaslat, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.tarayiciBaslat, warnings=True)
         try:
-            print(self.configGetir(base_warnings+"warning1"))
+            print(get_config(base_warnings+"warning1"))
             firefox_options = Options()
-            headless=self.configGetir("headless")
+            headless=get_config("headless")
             if headless=="false":
                 firefox_options.add_argument('--headless')
             self.driver = webdriver.Firefox(firefox_profile=self.tarayiciDilDegistir(),options=firefox_options,executable_path=self.tarayiciPathGetir())
             self.driver.get(self.BASE_URL + 'accounts/login/')
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)),2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)),2)
             exit()
 
     def tarayiciPathGetir(self):
-        return self.configGetir("driver_path")
+        return get_config("driver_path")
 
     def tarayiciDilDegistir(self):
         profile = webdriver.FirefoxProfile()
@@ -1199,14 +1213,14 @@ class Instagram():
         return profile
 
     def tarayiciPathAyarlari(self,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.tarayiciPathAyarlari, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.tarayiciPathAyarlari,inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.tarayiciPathAyarlari, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.tarayiciPathAyarlari,inputs=True)
         try:
             if durum:
-                ayarlar=self.configGetir(self.BASE_AYARLAR()+"tarayici_ayarlari.path_degistir.secenekler")
+                ayarlar=get_config(self.BASE_AYARLAR()+"tarayici_ayarlari.path_degistir.secenekler")
                 for secenek in ayarlar:
-                    self.uyariOlustur(secenek,3)
-            secilenIslem = input(self.configGetir(base_inputs+"input1"))
+                    show_in_console(secenek,3)
+            secilenIslem = input(get_config(base_inputs+"input1"))
             if secilenIslem=="1":
                 self.tarayiciPathDegistir()
                 self.ayarlar()
@@ -1217,16 +1231,16 @@ class Instagram():
             elif secilenIslem=="4":
                 self.menu()
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"),2)
+                show_in_console(get_config(base_warnings+"warning1"),2)
                 self.tarayiciPathAyarlari(durum=False)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)), 2)
 
     def tarayiciPathDegistir(self):
-        base_warnings = self.BASE_UYARI(metod=self.tarayiciPathDegistir, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.tarayiciPathDegistir,inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.tarayiciPathDegistir, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.tarayiciPathDegistir,inputs=True)
         try:
-            path = input(self.configGetir(base_inputs+"input1"))
+            path = input(get_config(base_inputs+"input1"))
             if self.dosyaMevcutMu(path):
                 with open('config.json', 'r+', encoding="utf-8") as dosya:
                     veri = json.load(dosya)
@@ -1234,22 +1248,22 @@ class Instagram():
                     dosya.seek(0)
                     json.dump(veri, dosya, indent=4,ensure_ascii=False)
                     dosya.truncate()
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"),1)
+                show_in_console(get_config(base_warnings+"warning1"),1)
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning2"), 2)
+                show_in_console(get_config(base_warnings+"warning2"), 2)
                 self.tarayiciPathAyarlari()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning3")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning3")).format(hata=str(error)), 2)
 
     def tarayiciGorunmeDurumuAyarlari(self,durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.tarayiciGorunmeDurumuAyarlari, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.tarayiciGorunmeDurumuAyarlari, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.tarayiciGorunmeDurumuAyarlari, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.tarayiciGorunmeDurumuAyarlari, inputs=True)
         try:
             if durum:
-                ayarlar=self.configGetir("{base}tarayici_ayarlari.gorunme_durumu_degistir.secenekler".format(base=self.BASE_AYARLAR()))
+                ayarlar=get_config("{base}tarayici_ayarlari.gorunme_durumu_degistir.secenekler".format(base=self.BASE_AYARLAR()))
                 for secenek in ayarlar:
-                    self.uyariOlustur(secenek,3)
-            secilenIslem=input(self.configGetir(base_inputs+"input1"))
+                    show_in_console(secenek,3)
+            secilenIslem=input(get_config(base_inputs+"input1"))
             if secilenIslem in ["1","2"]:
                 self.tarayiciGorunmeDurumDegistir(durum=secilenIslem)
                 self.ayarlar()
@@ -1260,13 +1274,13 @@ class Instagram():
             elif secilenIslem=="5":
                 self.menu()
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"),2)
+                show_in_console(get_config(base_warnings+"warning1"),2)
                 self.tarayiciGorunmeDurumuAyarlari(durum=False)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings + "warning2")).format(hata=str(error)), 2)
 
     def tarayiciGorunmeDurumDegistir(self,durum):
-        base_warnings = self.BASE_UYARI(metod=self.tarayiciGorunmeDurumDegistir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.tarayiciGorunmeDurumDegistir, warnings=True)
         try:
             if durum=="1":
                 headless="true"
@@ -1278,9 +1292,9 @@ class Instagram():
                 dosya.seek(0)
                 json.dump(veri, dosya, indent=4,ensure_ascii=False)
                 dosya.truncate()
-            self.uyariOlustur(self.configGetir(base_warnings+"warning1"),1)
+            show_in_console(get_config(base_warnings+"warning1"),1)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)), 2)
 
 
     def takipcilerButon(self):
@@ -1290,18 +1304,18 @@ class Instagram():
         return self.driver.find_elements_by_css_selector("ul.k9GMp >li.Y8-fY")[2]
 
     def takipcileriGetir(self):
-        base_warnings = self.BASE_UYARI(metod=self.takipcileriGetir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.takipcileriGetir, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.takipcileriGetir)
         try:
-            print(self.configGetir(base_warnings + "warning1"))
+            print(get_config(base_warnings + "warning1"))
             self.kullaniciProfilineYonlendir(self.aktifKullanici)
             takipciSayisi = self.takipciSayisiGetir()
 
             btn_takipciler = self.takipcilerButon()
             btn_takipciler.click()
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
             takipciler = set()
-            self.indexSifirla()
+            self.indexOne()
             devamEtsinMi = True
             while devamEtsinMi:
                 dialog_popup = self.driver.find_element_by_css_selector('div.pbNvD')
@@ -1311,9 +1325,9 @@ class Instagram():
                     takipciKullaniciAdi = self.metindenKarakterSil(
                         self.metindenKarakterSil(takipciKullaniciAdi, self.BASE_URL), '/')
                     if takipciKullaniciAdi not in takipciler:
-                        print(str(self.configGetir(base_warnings + "warning2")).format(index=self.index,kullanici=takipciKullaniciAdi))
+                        print(str(get_config(base_warnings + "warning2")).format(index=self.index,kullanici=takipciKullaniciAdi))
                         takipciler.add(takipciKullaniciAdi)
-                        self.indexArtir()
+                        self.indexUp()
                         if (self.index - 1) >= takipciSayisi:
                             devamEtsinMi = False
                             break
@@ -1321,26 +1335,26 @@ class Instagram():
                     try:
                         self.popupAsagiKaydir(secici='div[role="dialog"] .isgrP')
                     except Exception as error:
-                        self.uyariOlustur(str(self.configGetir(base_warnings + "warning3")).format(
+                        show_in_console(str(get_config(base_warnings + "warning3")).format(
                             hata=str(error)), 2)
                         pass
-                    sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+                    sleep(get_config("{base}sleep2".format(base=base_sleep)))
             btn_close_dialog = self.driver.find_element_by_css_selector("div.WaOAr >button.wpO6b")
             btn_close_dialog.click()
             return takipciler
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning4")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings + "warning4")).format(hata=str(error)), 2)
             self.menu()
 
     def takipEdilenleriGetir(self, takipciler):
-        base_warnings = self.BASE_UYARI(metod=self.takipEdilenleriGetir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.takipEdilenleriGetir, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.takipEdilenleriGetir)
         try:
             takipEdilenSayisi = self.takipEdilenSayisiGetir()
             btn_takipEdilenler = self.takipEdilenlerButon()
             btn_takipEdilenler.click()
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
-            self.indexSifirla()
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
+            self.indexOne()
             islemIndex = 0
             devamEtsinMi = True
             while devamEtsinMi:
@@ -1353,21 +1367,21 @@ class Instagram():
                         btn_takip = takip.find_element_by_css_selector('button.sqdOP')
                         if btn_takip.text == "Following":
                             btn_takip.click()
-                            sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+                            sleep(get_config("{base}sleep2".format(base=base_sleep)))
                             try:
                                 btn_onay = self.driver.find_element_by_css_selector("div.mt3GC > button.aOOlW")
                                 btn_onay.click()
                             except Exception as error:
-                                self.uyariOlustur(str(self.configGetir(base_warnings + "warning1")).format(
+                                show_in_console(str(get_config(base_warnings + "warning1")).format(
                                     kullanici=takipEdilenKullanıcıAdi, hata=str(error)), 2)
                                 continue
-                            self.uyariOlustur(str(self.configGetir(base_warnings + "warning2")).format(
+                            show_in_console(str(get_config(base_warnings + "warning2")).format(
                                 index=self.index, kullanici=takipEdilenKullanıcıAdi), 1)
-                            self.indexArtir()
+                            self.indexUp()
                             if self.index - 1 >= takipEdilenSayisi:
                                 devamEtsinMi = False
                                 break
-                            sleep3 = self.configGetir("{base}sleep3".format(base=base_sleep))
+                            sleep3 = get_config("{base}sleep3".format(base=base_sleep))
                             sleep(self.beklemeSuresiGetir(sleep3[0], sleep3[1]))
                     islemIndex = islemIndex + 1
                     if islemIndex >= takipEdilenSayisi:
@@ -1377,13 +1391,13 @@ class Instagram():
                     try:
                         self.popupAsagiKaydir(secici='div[role="dialog"] .isgrP')
                     except Exception as error:
-                        self.uyariOlustur(str(self.configGetir(base_warnings + "warning3")).format(
+                        show_in_console(str(get_config(base_warnings + "warning3")).format(
                             hata=str(error)), 2)
                         pass
-                    sleep(self.configGetir("{base}sleep4".format(base=base_sleep)))
+                    sleep(get_config("{base}sleep4".format(base=base_sleep)))
 
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning4")).format(
+            show_in_console(str(get_config(base_warnings + "warning4")).format(
                 hata=str(error)), 2)
             self.menu()
 
@@ -1399,141 +1413,93 @@ class Instagram():
         takipEdilenKullanıcıAdi = element.find_element_by_css_selector("a.FPmhX").get_attribute('href')
         return self.metindenKarakterSil(self.metindenKarakterSil(takipEdilenKullanıcıAdi, self.BASE_URL), '/')
 
-    def girisYap(self, username=False, password=False):
-        username = 'mariuszmalek'
-        password = 'malek4ever'
-        base_warnings = self.BASE_UYARI(metod=self.girisYap, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.girisYap, inputs=True)
-        base_sleep = self.BASE_SLEEP(metod=self.girisYap)
-
-        try:
-            if not username and not password:
-                print(" ")
-                print(" ")
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"), 1)
-                username = input(self.configGetir(base_inputs+"input1"))
-                password = getpass.getpass(prompt=self.configGetir(base_inputs+"input2"))
-            elif not username:
-                username = input(self.configGetir(base_inputs+"input1"))
-            elif not password:
-                password = getpass.getpass(prompt=self.configGetir(base_inputs+"input2"))
-
-            if not username and not password:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning2"), 2)
-                self.girisYap()
-            elif not username:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning3"), 2)
-                self.girisYap(False, password)
-            elif not password:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning4"), 2)
-                self.girisYap(username, False)
-
-            print(self.configGetir(base_warnings+"warning5"))
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
-            usernameInput = self.driver.find_elements_by_css_selector('form input')[0]
-            passwordInput = self.driver.find_elements_by_css_selector('form input')[1]
-            usernameInput.send_keys(username.strip())
-            passwordInput.send_keys(password.strip())
-            passwordInput.send_keys(Keys.ENTER)
-            sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
-            self.girisKontrol()
-            if self.girisYapildimi:
-                self.aktifKullaniciGetir()
-                self.bildirimThreadOlustur()
-                self.menu()
-            else:
-                self.inputTemizle(usernameInput)
-                self.inputTemizle(passwordInput)
-                self.girisYap()
-        except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(hata=str(error)), 2)
-
     def girisKontrol(self):
-        base_warnings = self.BASE_UYARI(metod=self.girisKontrol, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.girisKontrol, warnings=True)
         if "The username you entered doesn't belong to an account. Please check your username and try again." in self.driver.page_source:
-            self.uyariOlustur(self.configGetir(base_warnings+"warning1"),2)
+            show_in_console(get_config(base_warnings+"warning1"),2)
         elif "Sorry, your password was incorrect. Please double-check your password." in self.driver.page_source:
-            self.uyariOlustur(self.configGetir(base_warnings+"warning2"), 2)
+            show_in_console(get_config(base_warnings+"warning2"), 2)
         elif self.BASE_URL + "accounts/login/two_factor" in self.driver.current_url:
             self.girisDogrulama()
         elif self.driver.current_url != self.BASE_URL + "accounts/login/":
-            self.uyariOlustur(self.configGetir(base_warnings+"warning3"), 1)
-            self.girisYapildimi = True
+            show_in_console(get_config(base_warnings+"warning3"), 1)
+            self.authStatus = True
         else:
-            self.uyariOlustur(self.configGetir(base_warnings+"warning4"), 2)
+            show_in_console(get_config(base_warnings+"warning4"), 2)
 
     def girisDogrulama(self, durum=True):
-        base_warnings = self.BASE_UYARI(metod=self.girisDogrulama, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.girisDogrulama, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.girisDogrulama, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.girisDogrulama, inputs=True)
         base_sleep = self.BASE_SLEEP(metod=self.girisDogrulama)
 
-        kod = input(self.configGetir(base_inputs+"input1")).strip()
+        kod = input(get_config(base_inputs+"input1")).strip()
         if not kod:
-            self.girisYap(durum)
+            #auth_logout()
+            auth_login()
 
         if durum:
-            sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+            sleep(get_config("{base}sleep1".format(base=base_sleep)))
         kodInput = self.driver.find_elements_by_css_selector('form input')[0]
         kodInput.send_keys(kod)
         kodInput.send_keys(Keys.ENTER)
-        sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+        sleep(get_config("{base}sleep2".format(base=base_sleep)))
         if "A security code is required." in self.driver.page_source:
-            self.uyariOlustur(self.configGetir(base_warnings+"warning1"), 2)
+            show_in_console(get_config(base_warnings+"warning1"), 2)
             self.inputTemizle(kodInput)
             self.girisDogrulama(False)
         elif "Please check the security code and try again." in self.driver.page_source:
-            self.uyariOlustur(self.configGetir(base_warnings+"warning2"), 2)
+            show_in_console(get_config(base_warnings+"warning2"), 2)
             self.inputTemizle(kodInput)
             self.girisDogrulama(False)
         elif self.BASE_URL + "accounts/login/two_factor" not in self.driver.current_url:
-            self.girisYapildimi = True
-            self.uyariOlustur(self.configGetir(base_warnings+"warning3"),1)
+            self.authStatus = True
+            show_in_console(get_config(base_warnings+"warning3"),1)
         else:
-            self.uyariOlustur(self.configGetir(base_warnings+"warning4"),2)
+            show_in_console(get_config(base_warnings+"warning4"),2)
 
     def etiketGetir(self):
-        base_warnings = self.BASE_UYARI(metod=self.etiketGetir, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.etiketGetir, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.etiketGetir, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.etiketGetir, inputs=True)
         try:
-            etiket = input(self.configGetir(base_inputs+"input1")).strip()
+            etiket = input(get_config(base_inputs+"input1")).strip()
             self.anaMenuyeDonsunMu(etiket)
 
-            if self.degerVarMi(etiket):
+            if self.checkLength(etiket):
                 url = "{BASE_URL}explore/tags/{etiket}".format(BASE_URL=self.BASE_URL, etiket=str(etiket))
-                print(str(self.configGetir(base_warnings+"warning1")).format(url=url))
+                print(str(get_config(base_warnings+"warning1")).format(url=url))
                 self.urlYonlendir(url)
                 if not self.sayfaMevcutMu():
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(etiket=etiket),
+                    show_in_console(str(get_config(base_warnings+"warning2")).format(etiket=etiket),
                                       2)
                     return self.etiketGetir()
                 return etiket
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning3"), 2)
+                show_in_console(get_config(base_warnings+"warning3"), 2)
                 return self.etiketGetir()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning4")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning4")).format(hata=str(error)), 2)
 
     def etiketeGoreIslemLimitiGetir(self, islemNo):
-        base_warnings = self.BASE_UYARI(metod=self.etiketeGoreIslemLimitiGetir, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.etiketeGoreIslemLimitiGetir, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.etiketeGoreIslemLimitiGetir, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.etiketeGoreIslemLimitiGetir, inputs=True)
         try:
             if islemNo == 1:
-                limit = input(self.configGetir(base_inputs+"input1")).strip()
+                limit = input(get_config(base_inputs+"input1")).strip()
             elif islemNo == 2:
-                limit = input(self.configGetir(base_inputs+"input2")).strip()
+                limit = input(get_config(base_inputs+"input2")).strip()
 
             self.anaMenuyeDonsunMu(limit)
             if limit.isnumeric() and int(limit) > 0:
                 return int(limit)
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"), 2)
+                show_in_console(get_config(base_warnings+"warning1"), 2)
                 return self.etiketeGoreIslemLimitiGetir(islemNo=islemNo)
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)), 2)
             if islemNo == 1:
-                self.etiketeGoreBegenme()
+                self.likingPostsByTag()
             elif islemNo == 2:
-                self.etiketeGoreTakipEtme()
+                self.followUsersByTag()
 
     def hikayeVarMi(self):
         try:
@@ -1543,9 +1509,9 @@ class Instagram():
             else:
                 return False
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.hikayeVarMi, warnings=True)
-            self.uyariOlustur(
-                str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)),
+            base_warnings = self.BASE_TRANSLATE(metod=self.hikayeVarMi, warnings=True)
+            show_in_console(
+                str(get_config(base_warnings+"warning1")).format(hata=str(error)),
                 2)
 
     def hikayeVideoMu(self):
@@ -1560,8 +1526,8 @@ class Instagram():
             hikayeSayisi = self.driver.find_elements_by_css_selector("div.w9Vr-  > div._7zQEa")
             return len(hikayeSayisi)
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.hikayeSayisiGetir, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.hikayeSayisiGetir, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)), 2)
 
     def hikayeleriGetir(self):
         base_sleep = self.BASE_SLEEP(metod=self.hikayeleriGetir)
@@ -1579,10 +1545,10 @@ class Instagram():
                     self.dosyaIndir(url, 1)
                 btn_ileri = self.driver.find_element_by_css_selector("button.ow3u_")
                 btn_ileri.click()
-                sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                sleep(get_config("{base}sleep1".format(base=base_sleep)))
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.hikayeleriGetir, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.hikayeleriGetir, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)), 2)
 
     def yorumUzunlukBelirle(self, yorum):
         return yorum[0:randint(5, 100)]
@@ -1598,16 +1564,16 @@ class Instagram():
             textarea.send_keys(yorum)
             textarea.send_keys(Keys.ENTER)
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.yorumYap, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.yorumYap, warnings=True)
+            show_in_console(str(get_config(base_warnings + "warning1")).format(hata=str(error)), 2)
 
     def rastgeleYorumGetir(self):
         try:
             return requests.get("http://metaphorpsum.com/paragraphs/1/1").text
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.rastgeleYorumGetir, warnings=True)
-            self.uyariOlustur(
-                str(self.configGetir(base_warnings + "warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.rastgeleYorumGetir, warnings=True)
+            show_in_console(
+                str(get_config(base_warnings + "warning1")).format(hata=str(error)), 2)
 
     def yorumLimitiAsildiMi(self, yorumSayisi):
         if yorumSayisi > 50:
@@ -1618,24 +1584,24 @@ class Instagram():
     def mesajSil(self,mesaj):
         mesaj.click()
         base = self.BASE_SLEEP(metod=self.mesajSil)
-        sleep1=self.configGetir(base + "sleep1")
+        sleep1=get_config(base + "sleep1")
         sleep(self.beklemeSuresiGetir(sleep1[0],sleep1[1]))
         self.driver.find_element_by_css_selector("div.PjuAP button.wpO6b").click()
-        sleep(self.configGetir(base + "sleep2"))
+        sleep(get_config(base + "sleep2"))
         self.driver.find_elements_by_css_selector("div._9XapR >div._7zBYT button.sqdOP")[0].click()
-        sleep(self.configGetir(base + "sleep3"))
+        sleep(get_config(base + "sleep3"))
         self.driver.find_elements_by_css_selector("div.mt3GC >button.aOOlW")[0].click()
 
     def kullaniciEngelDurumDegistir(self):
         base_sleep = self.BASE_SLEEP(metod=self.kullaniciEngelDurumDegistir)
         self.driver.find_element_by_css_selector("button.wpO6b").click()
-        sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+        sleep(get_config("{base}sleep1".format(base=base_sleep)))
         self.driver.find_elements_by_css_selector("div.mt3GC > button.aOOlW")[0].click()
-        sleep(self.configGetir("{base}sleep2".format(base=base_sleep)))
+        sleep(get_config("{base}sleep2".format(base=base_sleep)))
         self.driver.find_elements_by_css_selector("div.mt3GC > button.aOOlW")[0].click()
 
     def kullaniciTakipDurumDegistir(self,kullanici,durum):
-        base_warnings = self.BASE_UYARI(metod=self.kullaniciTakipDurumDegistir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.kullaniciTakipDurumDegistir, warnings=True)
         base_sleep = self.BASE_SLEEP(metod=self.kullaniciTakipDurumDegistir)
 
         if self.hesapGizliMi():
@@ -1644,20 +1610,20 @@ class Instagram():
             if durum:
                 if btn_text in ["follow","follow back"]:
                     btn_takip.click()
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(kullanici=kullanici), 1)
+                    show_in_console(str(get_config(base_warnings+"warning1")).format(kullanici=kullanici), 1)
                 elif btn_text == "requested":
-                    print(str(self.configGetir(base_warnings+"warning2")).format(kullanici=kullanici))
+                    print(str(get_config(base_warnings+"warning2")).format(kullanici=kullanici))
                 elif btn_text == "unblock":
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning3")).format(
+                    show_in_console(str(get_config(base_warnings+"warning3")).format(
                         kullanici=kullanici), 2)
             else:
                 if btn_text=="requested":
                     btn_takip.click()
-                    sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                    sleep(get_config("{base}sleep1".format(base=base_sleep)))
                     self.driver.find_elements_by_css_selector("div.mt3GC >button.aOOlW")[0].click()
-                    self.uyariOlustur(str(self.configGetir(base_warnings + "warning8")).format(kullanici=kullanici), 1)
+                    show_in_console(str(get_config(base_warnings + "warning8")).format(kullanici=kullanici), 1)
                 else:
-                    print(str(self.configGetir(base_warnings+"warning4")).format(kullanici=kullanici))
+                    print(str(get_config(base_warnings+"warning4")).format(kullanici=kullanici))
 
         else:
             btn_takip = self.driver.find_element_by_css_selector('span.vBF20 > button._5f5mN')
@@ -1665,26 +1631,26 @@ class Instagram():
             if durum:
                 if btn_text in ["follow","follow back"]:
                     btn_takip.click()
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning5")).format(kullanici=kullanici), 1)
+                    show_in_console(str(get_config(base_warnings+"warning5")).format(kullanici=kullanici), 1)
                 elif btn_text == "unblock":
-                    self.uyariOlustur(str(self.configGetir(base_warnings+"warning6")).format(kullanici=kullanici), 2)
+                    show_in_console(str(get_config(base_warnings+"warning6")).format(kullanici=kullanici), 2)
                 else:
                     ariaLabel = btn_takip.find_element_by_tag_name("span").get_attribute("aria-label")
                     if ariaLabel == "Following":
-                        print(str(self.configGetir(base_warnings+"warning7")).format(kullanici=kullanici))
+                        print(str(get_config(base_warnings+"warning7")).format(kullanici=kullanici))
             else:
                 try:
                     ariaLabel = btn_takip.find_element_by_tag_name("span").get_attribute("aria-label")
                     if ariaLabel == "Following":
                         btn_takip.click()
-                        sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                        sleep(get_config("{base}sleep1".format(base=base_sleep)))
                         self.driver.find_elements_by_css_selector("div.mt3GC >button.aOOlW")[0].click()
-                        self.uyariOlustur(str(self.configGetir(base_warnings + "warning8")).format(kullanici=kullanici),
+                        show_in_console(str(get_config(base_warnings + "warning8")).format(kullanici=kullanici),
                                           1)
                     else:
-                        print(str(self.configGetir(base_warnings + "warning4")).format(kullanici=kullanici))
+                        print(str(get_config(base_warnings + "warning4")).format(kullanici=kullanici))
                 except:
-                    print(str(self.configGetir(base_warnings + "warning4")).format(kullanici=kullanici))
+                    print(str(get_config(base_warnings + "warning4")).format(kullanici=kullanici))
 
 
     def gonderiIlerlet(self):
@@ -1696,10 +1662,10 @@ class Instagram():
     def gonderiBegenDurumDegistir(self, btn):
         base_sleep = self.BASE_SLEEP(metod=self.gonderiBegenDurumDegistir)
         btn.click()
-        self.indexArtir()
-        sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+        self.indexUp()
+        sleep(get_config("{base}sleep1".format(base=base_sleep)))
         self.gonderiIlerlet()
-        sleep2=self.configGetir("{base}sleep2".format(base=base_sleep))
+        sleep2=get_config("{base}sleep2".format(base=base_sleep))
         sleep(self.beklemeSuresiGetir(sleep2[0],sleep2[1]))
 
     def begenButon(self):
@@ -1710,8 +1676,8 @@ class Instagram():
 
     def gonderiVarMi(self, kullanici, gonderiSayisi, secim):
         if gonderiSayisi < 1:
-            base_warnings = self.BASE_UYARI(metod=self.gonderiVarMi, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(kullanici=kullanici), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.gonderiVarMi, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(kullanici=kullanici), 2)
             self.profilSec(secim)
 
     def gonderiSayisi(self):
@@ -1738,8 +1704,8 @@ class Instagram():
                 veriTuru = 1
             return url, veriTuru
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.gonderiUrlGetir, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.gonderiUrlGetir, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)), 2)
             return None, None
 
     def gonderiAlbumMu(self):
@@ -1749,8 +1715,8 @@ class Instagram():
         except:
             return False
 
-    def albumUrlGetir(self):
-        base_sleep = self.BASE_SLEEP(metod=self.albumUrlGetir)
+    def getAlbumUrl(self):
+        base_sleep = self.BASE_SLEEP(metod=self.getAlbumUrl)
 
         try:
             album = set()
@@ -1764,7 +1730,7 @@ class Instagram():
                         self.dosyaIndir(url, veriTuru)
                 btn_ileri = self.driver.find_element_by_css_selector("button._6CZji div.coreSpriteRightChevron")
                 btn_ileri.click()
-                sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                sleep(get_config("{base}sleep1".format(base=base_sleep)))
         except:
             pass
 
@@ -1772,8 +1738,8 @@ class Instagram():
         try:
             return len(self.driver.find_elements_by_css_selector("div.Yi5aA"))
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.albumIcerikUrlGetir, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format( url=str(self.driver.current_url), hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.albumIcerikUrlGetir, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format( url=str(self.driver.current_url), hata=str(error)), 2)
             return None
 
     def albumIcerikUrlGetir(self, element):
@@ -1787,8 +1753,8 @@ class Instagram():
                 veriTuru = 1
             return url, veriTuru
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.albumIcerikUrlGetir, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.albumIcerikUrlGetir, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)), 2)
             return None, None
 
     def aktifKullaniciGetir(self):
@@ -1798,8 +1764,8 @@ class Instagram():
                 "href")
             self.aktifKullanici = str(kullanici).replace(self.BASE_URL, "")
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.aktifKullaniciGetir, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.aktifKullaniciGetir, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)), 2)
             self.aktifKullaniciGetir()
 
     def anaMenuyeDonsunMu(self, deger):
@@ -1810,17 +1776,17 @@ class Instagram():
         try:
             return "languages.{dil}.ayarlar.".format(dil=self.dil)
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.BASE_AYARLAR, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)),2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.BASE_AYARLAR, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)),2)
 
     def BASE_SLEEP(self,metod):
         try:
             return "time.{metod}.".format(metod=metod.__name__)
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.BASE_SLEEP, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)),2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.BASE_SLEEP, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)),2)
 
-    def BASE_UYARI(self, metod, warnings=None, inputs=None):
+    def BASE_TRANSLATE(self, metod, warnings=None, inputs=None):
         try:
             if warnings:
                 return "languages.{dil}.warnings.{metod}.warnings.".format(dil=self.dil, metod=metod.__name__)
@@ -1829,8 +1795,8 @@ class Instagram():
             else:
                 return "languages.{dil}.warnings.{metod}.".format(dil=self.dil, metod=metod.__name__)
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.BASE_UYARI, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings + "warning1")).format(hata=str(error)))
+            base_warnings = self.BASE_TRANSLATE(metod=self.BASE_TRANSLATE, warnings=True)
+            show_in_console(str(get_config(base_warnings + "warning1")).format(hata=str(error)))
 
     def beklemeSuresiGetir(self, baslangic, bitis):
         return randint(baslangic, bitis)
@@ -1844,7 +1810,7 @@ class Instagram():
         base_sleep = self.BASE_SLEEP(metod=self.bildirimPopupKapat)
         try:
             for i in range(2):
-                sleep(self.configGetir("{base}sleep1".format(base=base_sleep)))
+                sleep(get_config("{base}sleep1".format(base=base_sleep)))
                 btn = self.driver.find_element_by_xpath("//button[contains(text(), 'Not Now')]")
                 self.driver.execute_script("arguments[0].click();", btn)
         except:
@@ -1870,14 +1836,14 @@ class Instagram():
 
     def kullanicilariTakipEt(self, kullaniciListesi, secim):
         base_sleep = self.BASE_SLEEP(metod=self.kullanicilariTakipEt)
-        base_warnings = self.BASE_UYARI(metod=self.kullanicilariTakipEt, warnings=True)
-        print(self.configGetir(base_warnings + "warning1"))
-        sleep1 = self.configGetir("{base}sleep1".format(base=base_sleep))
+        base_warnings = self.BASE_TRANSLATE(metod=self.kullanicilariTakipEt, warnings=True)
+        print(get_config(base_warnings + "warning1"))
+        sleep1 = get_config("{base}sleep1".format(base=base_sleep))
         for kullanici in kullaniciListesi:
             if self.kullaniciKontrol(kullanici):
                 self.kullaniciTakipEt(kullanici=kullanici.strip(),secim=secim)
                 sleep(self.beklemeSuresiGetir(sleep1[0], sleep1[1]))
-        print(self.configGetir(base_warnings + "warning2"))
+        print(get_config(base_warnings + "warning2"))
 
     def kullaniciKontrol(self, kullanici):
         return self.urlKontrol(self.BASE_URL + kullanici)
@@ -1885,24 +1851,24 @@ class Instagram():
     def kullaniciProfilineYonlendir(self, kullanici):
         self.driver.get(self.BASE_URL + kullanici)
         base = self.BASE_SLEEP(metod=self.kullaniciProfilineYonlendir)
-        sleep(self.configGetir("{base}sleep1".format(base=base)))
+        sleep(get_config("{base}sleep1".format(base=base)))
 
     def urlGirildiMi(self, url, metod, metodDeger=None):
-        base_warnings = self.BASE_UYARI(metod=self.urlGirildiMi, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.urlGirildiMi, warnings=True)
         if url is None or len(url) < 12:
-            self.uyariOlustur(self.configGetir(base_warnings + "warning1"), 2)
+            show_in_console(get_config(base_warnings + "warning1"), 2)
             if metodDeger:
-                if "gonderiYorumYapma" == metod.__name__:
+                if "commentingPost" == metod.__name__:
                     metod(yorum=metodDeger)
                 metod(metodDeger)
             metod()
 
     def urlGecerliMi(self, url, metod, metodDeger=None):
         if not self.urlKontrol(url):
-            base_warnings = self.BASE_UYARI(metod=self.urlGecerliMi, warnings=True)
-            self.uyariOlustur(self.configGetir(base_warnings + "warning1"), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.urlGecerliMi, warnings=True)
+            show_in_console(get_config(base_warnings + "warning1"), 2)
             if metodDeger:
-                if "gonderiYorumYapma" == metod.__name__:
+                if "commentingPost" == metod.__name__:
                     metod(yorum=metodDeger)
                 metod(metodDeger)
             metod()
@@ -1920,16 +1886,7 @@ class Instagram():
     def urlYonlendir(self, url):
         self.driver.get(url)
         base = self.BASE_SLEEP(metod=self.urlYonlendir)
-        sleep(self.configGetir("{base}sleep1".format(base=base)))
-
-    def uyariOlustur(self, mesaj, durum):
-        if durum == 1:
-            uyari= colored(mesaj, "green")
-        elif durum == 2:
-            uyari=  colored(mesaj, "red")
-        elif durum == 3:
-            uyari=  colored(mesaj, "blue")
-        print(uyari)
+        sleep(get_config("{base}sleep1".format(base=base)))
 
     def dosyaAdiOlustur(self,veriTuru):
         dt=str(datetime.now()).replace(":", "_").replace(" ", "")
@@ -1940,28 +1897,28 @@ class Instagram():
         return isim
 
     def dosyaIndir(self, url, veriTuru):
-        base_warnings = self.BASE_UYARI(metod=self.dosyaIndir, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.dosyaIndir, warnings=True)
         try:
             dosyaAdi=self.dosyaAdiOlustur(veriTuru)
             urllib.request.urlretrieve(url, dosyaAdi)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(url=url), 1)
-            self.indexArtir()
+            show_in_console(str(get_config(base_warnings+"warning1")).format(url=url), 1)
+            self.indexUp()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)), 2)
 
     def dosyaSec(self):
-        base_warnings = self.BASE_UYARI(metod=self.dosyaSec, warnings=True)
-        base_inputs = self.BASE_UYARI(metod=self.dosyaSec, inputs=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.dosyaSec, warnings=True)
+        base_inputs = self.BASE_TRANSLATE(metod=self.dosyaSec, inputs=True)
         try:
-            dosyaAdi = input(self.configGetir(base_inputs+"input1")).strip()
+            dosyaAdi = input(get_config(base_inputs+"input1")).strip()
             self.anaMenuyeDonsunMu(dosyaAdi)
             if self.dosyaMevcutMu(dosyaAdi) and self.txtDosyasiMi(dosyaAdi):
                 return str(dosyaAdi)
             else:
-                self.uyariOlustur(self.configGetir(base_warnings+"warning1"), 2)
+                show_in_console(get_config(base_warnings+"warning1"), 2)
                 return self.dosyaSec()
         except Exception as error:
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning2")).format(hata=str(error)), 2)
+            show_in_console(str(get_config(base_warnings+"warning2")).format(hata=str(error)), 2)
             return self.dosyaSec()
 
     def dosyaİceriginiAl(self, dosya):
@@ -1973,18 +1930,12 @@ class Instagram():
                         icerik.add(satir.strip())
             return icerik
         except Exception as error:
-            base_warnings = self.BASE_UYARI(metod=self.dosyaİceriginiAl, warnings=True)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(hata=str(error)), 2)
+            base_warnings = self.BASE_TRANSLATE(metod=self.dosyaİceriginiAl, warnings=True)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(hata=str(error)), 2)
             return False
 
     def dosyaİcerigiAlindiMi(self, icerik):
         if icerik:
-            return True
-        else:
-            return False
-
-    def dosyaMevcutMu(self, path):
-        if os.path.isfile(path):
             return True
         else:
             return False
@@ -1996,14 +1947,14 @@ class Instagram():
             return False
 
     def klasorOlustur(self, klasor):
-        base_warnings = self.BASE_UYARI(metod=self.klasorOlustur, warnings=True)
+        base_warnings = self.BASE_TRANSLATE(metod=self.klasorOlustur, warnings=True)
         if not os.path.exists(klasor):
             os.mkdir(klasor)
-            self.uyariOlustur(str(self.configGetir(base_warnings+"warning1")).format(klasor=klasor), 1)
+            show_in_console(str(get_config(base_warnings+"warning1")).format(klasor=klasor), 1)
         else:
-            print(str(self.configGetir(base_warnings+"warning2")).format(klasor=klasor))
+            print(str(get_config(base_warnings+"warning2")).format(klasor=klasor))
         self.klasorDegistir(klasor)
-        print(str(self.configGetir(base_warnings+"warning3")).format(klasor=klasor))
+        print(str(get_config(base_warnings+"warning3")).format(klasor=klasor))
 
     def klasorDegistir(self, klasor):
         os.chdir(klasor)
@@ -2019,13 +1970,13 @@ class Instagram():
             hedef = kaynak
         return hedef
 
-    def indexSifirla(self):
+    def indexOne(self):
         self.index = 1
 
-    def indexArtir(self):
+    def indexUp(self):
         self.index = self.index + 1
 
-    def degerVarMi(self, yorum):
+    def checkLength(self, yorum):
         if len(yorum) > 0:
             return True
         else:

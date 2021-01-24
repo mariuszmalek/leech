@@ -1,0 +1,5 @@
+{
+    "driver_language": "'intl.accept_languages', 'en-US, en'",
+    "driver_path": "C:\\Programs\\geckodriver\\geckodriver.exe",
+    "headless": "true"
+}

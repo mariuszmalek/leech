@@ -94,29 +94,29 @@ python instagram.py
 
 :small_blue_diamond: Main menu
 
-![Main menu](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/mainMenu.PNG)
+![Main menu](https://raw.githubusercontent.com/mariuszmalek/leech/main/img/mainMenu.PNG)
 
 
 :small_blue_diamond: Download posts
 
-![Download posts](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/postsDownload.PNG)
+![Download posts](https://raw.githubusercontent.com/mariuszmalek/leech/main/img/postsDownload.PNG)
 
 :small_blue_diamond: Like posts
 
-![Like posts](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/postsLike.PNG)
+![Like posts](https://raw.githubusercontent.com/mariuszmalek/leech/main/img/postsLike.PNG)
 
 :small_blue_diamond: Bulk unfollow
 
-![Bulk unfollow](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/allUnfollow.PNG)
+![Bulk unfollow](https://raw.githubusercontent.com/mariuszmalek/leech/main/img/allUnfollow.PNG)
 
 
 :small_blue_diamond: Bulk commenting
 
-![Bulk commenting](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/bulkComment.PNG)
+![Bulk commenting](https://raw.githubusercontent.com/mariuszmalek/leech/main/img/bulkComment.PNG)
 
 :small_blue_diamond: Bulk comment deletion
 
-![Bulk comment deletion](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/messagesDeleted.PNG)
+![Bulk comment deletion](https://raw.githubusercontent.com/mariuszmalek/leech/main/img/messagesDeleted.PNG)
 
 
 

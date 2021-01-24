@@ -8,39 +8,36 @@
 </p>
 
 ## :books: Documentation
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :small_blue_diamond: For [Turkish](https://github.com/mariuszmalek/leech/blob/master/Readme.tr.md) documentation  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :small_blue_diamond: English translation of the documentation was made by **[Can Mıhcı](https://www.linkedin.com/in/canmihci/)**.  
-
 
 ## Introduction
-**An Instagram bot developed using the Selenium Framework**
+**Tooling that automates your social media interactions to “farm” Likes, Comments, and Followers on Instagram Implemented in Python using the Selenium Framework.**
 
 ## Features
-  :large_blue_circle: **Download all posts of a single user**  
-  :large_blue_circle: **Like or unlike all posts of a single user**  
-  :large_blue_circle: **Bulk unfollow**  
-  :large_blue_circle: **Bulk comments on a single post**  
-  :large_blue_circle: **Bulk unfollow all users that do not follow back**  
-  :large_blue_circle: **Delete messages in bulk**  
-  :large_blue_circle: **Download highlighted stories**  
-  :large_blue_circle: **Download stories**  
-  :large_blue_circle: **Download a single post**  
-  :large_blue_circle: **Download an IG TV Video**  
-  :large_blue_circle: **Follow all the followers of a single user**  
-  :large_blue_circle: **Follow all listed users in a file**  
-  :large_blue_circle: **Follow all users that have liked a single post**  
-  :large_blue_circle: **Follow users based on tag**  
-  :large_blue_circle: **Like posts based on tag**  
-  :large_blue_circle: **Like or unlike a single post**  
-  :large_blue_circle: **Comment on a single post**  
-  :large_blue_circle: **Follow or unfollow a user**  
-  :large_blue_circle: **Block or unblock a user**  
+  :heavy_check_mark: **Download all posts of a single user**  
+  :heavy_check_mark: **Like or unlike all posts of a single user**  
+  :heavy_check_mark: **Bulk unfollow**  
+  :heavy_check_mark: **Bulk comments on a single post**  
+  :heavy_check_mark: **Bulk unfollow all users that do not follow back**  
+  :heavy_check_mark: **Delete messages in bulk**  
+  :heavy_check_mark: **Download highlighted stories**  
+  :heavy_check_mark: **Download stories**  
+  :heavy_check_mark: **Download a single post**  
+  :heavy_check_mark: **Download an IG TV Video**  
+  :heavy_check_mark: **Follow all the followers of a single user**  
+  :heavy_check_mark: **Follow all listed users in a file**  
+  :heavy_check_mark: **Follow all users that have liked a single post**  
+  :heavy_check_mark: **Follow users based on tag**  
+  :heavy_check_mark: **Like posts based on tag**  
+  :heavy_check_mark: **Like or unlike a single post**  
+  :heavy_check_mark: **Comment on a single post**  
+  :heavy_check_mark: **Follow or unfollow a user**  
+  :heavy_check_mark: **Block or unblock a user**  
 
 
 ## Other Features
-  :large_blue_circle: Support for two languages: English and Turkish.  
-  :large_blue_circle: Option of running browser window in normal or incognito modes has been granted.  
-  :large_blue_circle: A settings menu has been included. Settings menu features language and browser settings.  
+  :heavy_check_mark: Support for two languages: English and Polish.  
+  :heavy_check_mark: Option of running browser window in normal or incognito modes has been granted.  
+  :heavy_check_mark: A settings menu has been included. Settings menu features language and browser settings.  
 
 
 ## Details

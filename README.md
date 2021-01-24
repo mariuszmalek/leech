@@ -71,7 +71,7 @@ python -m pip install -r .\requirements.txt
 :small_blue_diamond:  '**menu**' commands needs to be used for returning to the main menu from any prompt that asks the user for input.
 
 ```
-python instagram.py
+python bot.py
 ```
 
 

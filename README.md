@@ -1,5 +1,5 @@
 <h1 align="left">Leech - Instagram Bot :space_invader:</h1>
-<h4 align="left">Tooling that automates your social media interactions to “farm” Likes, Comments, and Followers on Instagram Implemented in Python using the Selenium module.</h4>
+<h4 align="left">Free tooling that automates your social media interactions to “farm” Likes, Comments, and Followers on Instagram Implemented in API wrapper / Python using the Selenium module.</h4>
 
 <p align="center">
   <a href="https://github.com/mariuszmalek/leech">

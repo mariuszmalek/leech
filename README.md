@@ -7,7 +7,7 @@
 </p>
 
 ## :books: Documentation
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :small_blue_diamond: For [Turkish](https://github.com/mustafadalga/Instagram-Bot/blob/master/Readme.tr.md) documentation  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :small_blue_diamond: For [Turkish](https://github.com/mariuszmalek/leech/blob/master/Readme.tr.md) documentation  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :small_blue_diamond: English translation of the documentation was made by **[Can Mıhcı](https://www.linkedin.com/in/canmihci/)**.  
 
 
@@ -51,7 +51,7 @@
 
 ## Configuration Settings
  :gear:	 Project utilizes Firefox browser as webdriver. This requires Firefox to be installed for the application to work properly.  
- :gear:	 In order to use Firefox [webdriver](https://github.com/mozilla/geckodriver/releases) needs to be downloaded and the directory path for the downloaded webdriver needs to be set within [config.json](https://github.com/mustafadalga/Instagram-Bot/blob/master/config.json).  
+ :gear:	 In order to use Firefox [webdriver](https://github.com/mozilla/geckodriver/releases) needs to be downloaded and the directory path for the downloaded webdriver needs to be set within [config.json](https://github.com/mariuszmalek/leech/blob/master/config.json).  
 
 
 * ### Config Options
@@ -80,7 +80,7 @@ python instagram.py
 
 ### Notes
 :small_blue_diamond: Operation intervals has been set for a length of time that prevents your account from getting banned for bulk operations of post-likes, user-follows or commenting.  
-:small_blue_diamond: The operation intervals may be changed from within [config.json](https://github.com/mustafadalga/Instagram-Bot/blob/master/config.json).  
+:small_blue_diamond: The operation intervals may be changed from within [config.json](https://github.com/mariuszmalek/leech/blob/master/config.json).  
 :small_blue_diamond: Has been tested only under Windows.  
 :small_blue_diamond: Python version: 3.8.1  
 
@@ -94,33 +94,33 @@ python instagram.py
 
 :small_blue_diamond: Main menu
 
-![Main menu](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/mainMenu.PNG)
+![Main menu](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/mainMenu.PNG)
 
 
 :small_blue_diamond: Download posts
 
-![Download posts](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/postsDownload.PNG)
+![Download posts](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/postsDownload.PNG)
 
 :small_blue_diamond: Like posts
 
-![Like posts](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/postsLike.PNG)
+![Like posts](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/postsLike.PNG)
 
 :small_blue_diamond: Bulk unfollow
 
-![Bulk unfollow](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/allUnfollow.PNG)
+![Bulk unfollow](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/allUnfollow.PNG)
 
 
 :small_blue_diamond: Bulk commenting
 
-![Bulk commenting](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/bulkComment.PNG)
+![Bulk commenting](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/bulkComment.PNG)
 
 :small_blue_diamond: Bulk comment deletion
 
-![Bulk comment deletion](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/messagesDeleted.PNG)
+![Bulk comment deletion](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/messagesDeleted.PNG)
 
 
 
 
 ## License
- [![License](https://img.shields.io/github/license/mustafadalga/Instagram-Bot)](https://github.com/mustafadalga/Instagram-Bot/blob/master/LICENSE)
+ [![License](https://img.shields.io/github/license/mariuszmalek/leech)](https://github.com/mariuszmalek/leech/blob/master/LICENSE)
 

@@ -1,13 +1,13 @@
 <h1 align="center">Instagram Bot</h1>
 
 <p align="center">
-  <a href="https://github.com/mustafadalga/Instagram-Bot">
-    <img src="https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/logo.png" alt="Instagram Bot" width="300">
+  <a href="https://github.com/mariuszmalek/leech">
+    <img src="https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/logo.png" alt="Instagram Bot" width="300">
   </a>
 </p>
 
 ## :books: Dokümantasyon 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :small_blue_diamond: [İngilizce](https://github.com/mustafadalga/Instagram-Bot) dokümantasyon için  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :small_blue_diamond: [İngilizce](https://github.com/mariuszmalek/leech) dokümantasyon için  
 
 
 ## Açıklama 
@@ -50,7 +50,7 @@
 
 ## Yapılandırma Ayarları
  :gear:	 Proje webdriver olarak Firefox tarayıcısını kullanmaktadır.Bu yüzden Firefox'un kurulu olması gerekmektedir.  
- :gear:	 Firefox'un kullanılabilmesi için [webdriver](https://github.com/mozilla/geckodriver/releases) indirilmeli ve indirilen webdriver'in dizin yolu [config.json](https://github.com/mustafadalga/Instagram-Bot/blob/master/config.json) içerisinde tanımlanmalıdır.
+ :gear:	 Firefox'un kullanılabilmesi için [webdriver](https://github.com/mozilla/geckodriver/releases) indirilmeli ve indirilen webdriver'in dizin yolu [config.json](https://github.com/mariuszmalek/leech/blob/master/config.json) içerisinde tanımlanmalıdır.
 
 
 * ### Config Ayarları
@@ -79,7 +79,7 @@ python instagram.py
 
 ### Notlar
 :small_blue_diamond: Gönderi beğenme , kullanıcı takip etme , toplu yorum yapma gibi işlemlerde hesabınızın engellenmemesi için işlem süre aralıkları uzun süreler olarak ayarlandı.   
-:small_blue_diamond: Yapılan işlemler için belirlenen işlem süreleri [config.json](https://github.com/mustafadalga/Instagram-Bot/blob/master/config.json) dosyası içerisinden değiştirilebilir.  
+:small_blue_diamond: Yapılan işlemler için belirlenen işlem süreleri [config.json](https://github.com/mariuszmalek/leech/blob/master/config.json) dosyası içerisinden değiştirilebilir.  
 :small_blue_diamond: Sadece Windows işletim sisteminde test edilmiştir.  
 :small_blue_diamond: Python versiyonu:3.8.1  
 
@@ -93,30 +93,30 @@ python instagram.py
 
 :small_blue_diamond: Ana menü
 
-![Ana menü](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/mainMenu.PNG)
+![Ana menü](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/mainMenu.PNG)
 
 
 :small_blue_diamond: Gönderileri indirme
 
-![Gönderileri indirme](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/postsDownload.PNG)
+![Gönderileri indirme](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/postsDownload.PNG)
 
 :small_blue_diamond: Gönderileri beğenme
 
-![Gönderileri beğenme](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/postsLike.PNG)
+![Gönderileri beğenme](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/postsLike.PNG)
 
 :small_blue_diamond: Toplu takipten çıkma
 
-![Toplu takipten çıkma](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/allUnfollow.PNG)
+![Toplu takipten çıkma](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/allUnfollow.PNG)
 
 
 :small_blue_diamond: Toplu yorum yapma
 
-![Toplu yorum yapma](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/bulkComment.PNG)
+![Toplu yorum yapma](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/bulkComment.PNG)
 
 :small_blue_diamond: Toplu mesaj silme
 
-![Toplu mesaj silme](https://raw.githubusercontent.com/mustafadalga/Instagram-Bot/master/assets/img/messagesDeleted.PNG)
+![Toplu mesaj silme](https://raw.githubusercontent.com/mariuszmalek/leech/master/assets/img/messagesDeleted.PNG)
 
 
 ## License
- [![License](https://img.shields.io/github/license/mustafadalga/Instagram-Bot)](https://github.com/mustafadalga/Instagram-Bot/blob/master/LICENSE)
+ [![License](https://img.shields.io/github/license/mariuszmalek/leech)](https://github.com/mariuszmalek/leech/blob/master/LICENSE)

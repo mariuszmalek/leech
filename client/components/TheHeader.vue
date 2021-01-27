@@ -6,7 +6,7 @@
 
   ul.TheHeader-actions
     li.TheHeader-icon
-      a(href="https://github.com/baianat/board" target="blank"): AppIcon(name="github")
+      a(href="https://github.com/baianat/leech" target="blank"): AppIcon(name="github")
     li
       AppDropdown.is-large.is-right
         AppIcon(name="notifications" slot="trigger" type="outlined")

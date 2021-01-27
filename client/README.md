@@ -1,19 +1,19 @@
-# board
+# leech
 
-> A complete admin board template with more than 100 elements and components, based on [Blexar](https://github.com/baianat/blexar) CSS framework.
+> A complete admin leech template with more than 100 elements and components, based on [Blexar](https://github.com/baianat/blexar) CSS framework.
 > Made with [Nuxt.js](https://github.com/nuxt/nuxt.js) + [Vue.js](https://github.com/vuejs/vue).
 
 ## Demo
 
-[Demo url](https://baianat.github.io/board/)
+[Demo url](https://baianat.github.io/leech/)
 
-![alt Board](https://github.com/baianat/board/blob/master/static/board.jpg)
+![alt Leech](https://github.com/baianat/leech/blob/master/static/leech.jpg)
 
 ## Getting started
 
 ```bash
 # clone the project
-$ git clone https://github.com/baianat/board.git
+$ git clone https://github.com/baianat/leech.git
 
 # install dependency
 $ npm install
@@ -45,6 +45,6 @@ Change variable
 $dir = ltr
 to
 $dir = rtl
-in file /board/assets/css/vars.styl
+in file /leech/assets/css/vars.styl
 ```
 

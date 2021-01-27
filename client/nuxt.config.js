@@ -1,19 +1,19 @@
 module.exports = {
   mode: 'spa',
   router: {
-    base: process.env.DEPLOY_ENV === 'GH_PAGES' ? '/board/' : '/',
+    base: process.env.DEPLOY_ENV === 'GH_PAGES' ? '/leech/' : '/',
     linkExactActiveClass: 'is-active'
   },
   /*
   ** Headers of the page
   */
   head: {
-    titleTemplate: '%s | Board',
-    title: 'Board',
+    titleTemplate: '%s | Leech',
+    title: 'Leech',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Board admin panel' }
+      { hid: 'description', name: 'description', content: 'Leech admin panel' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

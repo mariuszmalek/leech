@@ -1,7 +1,7 @@
 <template lang="pug">
 div
   h1 Validation
-  p We use #[a(href="https://baianat.github.io/vee-validate/" target="blank") #[code VeeValidate]] for validations
+  p We use #[a(href="https://mariuszmalek.github.io/leech/" target="blank") #[code VeeValidate]] for validations
   .grid.has-space
     .column.is-desktop-6
       AppCard.is-full

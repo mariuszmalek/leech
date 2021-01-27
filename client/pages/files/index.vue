@@ -182,8 +182,8 @@
             figure.avatar.is-small.is-inline.is-secondary
               span.avatar-initials BI
             span
-              span.files-share-users-name Baianat Info
-              span.files-share-users-email support@baianat.com
+              span.files-share-users-name mariuszmalek Info
+              span.files-share-users-email support@mariuszmalek.com
           .files-share-users-footer
             AppDropdown.is-right.is-small
               span(slot="trigger" class="u-font-small")
@@ -198,8 +198,8 @@
             figure.avatar.is-small.is-inline
               span.avatar-initials BS
             span
-              span.files-share-users-name Baianat Support
-              span.files-share-users-email support@baianat.com
+              span.files-share-users-name mariuszmalek Support
+              span.files-share-users-email support@mariuszmalek.com
           .files-share-users-footer
             span.u-font-small Owner
 

@@ -22,7 +22,7 @@
             <li>
               <div
                 class="relative bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                <img src="assets/images/avatars/avatar-2.jpg"
+                <img src="~/assets/images/avatars/avatar-2.jpg"
                   class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 <a href="#"
                   class=" bg-gray-400 p-2 rounded-full w-8 h-8 flex justify-center items-center text-white border-4 border-white absolute right-2 bottom-0 bg-blue-600">
@@ -35,7 +35,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-1.jpg"
+                  <img src="~/assets/images/avatars/avatar-1.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -46,7 +46,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-3.jpg"
+                  <img src="~/assets/images/avatars/avatar-3.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -57,7 +57,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-4.jpg"
+                  <img src="~/assets/images/avatars/avatar-4.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -68,7 +68,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-5.jpg"
+                  <img src="~/assets/images/avatars/avatar-5.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -79,7 +79,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-6.jpg"
+                  <img src="~/assets/images/avatars/avatar-6.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -90,7 +90,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-1.jpg"
+                  <img src="~/assets/images/avatars/avatar-1.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -101,7 +101,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-2.jpg"
+                  <img src="~/assets/images/avatars/avatar-2.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -112,7 +112,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-3.jpg"
+                  <img src="~/assets/images/avatars/avatar-3.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -123,7 +123,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-4.jpg"
+                  <img src="~/assets/images/avatars/avatar-4.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -134,7 +134,7 @@
               <a href="#story-view">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-1">
-                  <img src="assets/images/avatars/avatar-5.jpg"
+                  <img src="~/assets/images/avatars/avatar-5.jpg"
                     class="w-20 h-20 rounded-full border-2 border-white bg-gray-200">
                 </div>
               </a>
@@ -160,7 +160,7 @@
             <li>
               <div class="bg-gray-200 max-w-full lg:h-64 h-52 rounded-lg relative overflow-hidden">
                 <a href="profile.html">
-                  <img src="assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
+                  <img src="~/assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
                 </a>
                 <a href="#" class="absolute right-3 top-3 bg-black bg-opacity-60 rounded-full"
                   data-tippy-placement="left" title="Hide">
@@ -192,7 +192,7 @@
             <li>
               <div class="bg-gray-200 max-w-full lg:h-64 h-52 rounded-lg relative overflow-hidden">
                 <a href="profile.html">
-                  <img src="assets/images/avatars/avatar-6.jpg" class="w-full h-full absolute object-cover inset-0">
+                  <img src="~/assets/images/avatars/avatar-6.jpg" class="w-full h-full absolute object-cover inset-0">
                 </a>
                 <a href="#" class="absolute right-3 top-3 bg-black bg-opacity-60 rounded-full"
                   data-tippy-placement="left" title="Hide">
@@ -224,7 +224,7 @@
             <li>
               <div class="bg-gray-200 max-w-full lg:h-64 h-52 rounded-lg relative overflow-hidden">
                 <a href="profile.html">
-                  <img src="assets/images/avatars/avatar-4.jpg" class="w-full h-full absolute object-cover inset-0">
+                  <img src="~/assets/images/avatars/avatar-4.jpg" class="w-full h-full absolute object-cover inset-0">
                 </a>
                 <a href="#" class="absolute right-3 top-3 bg-black bg-opacity-60 rounded-full"
                   data-tippy-placement="left" title="Hide">
@@ -256,7 +256,7 @@
             <li>
               <div class="bg-gray-200 max-w-full lg:h-64 h-52 rounded-lg relative overflow-hidden">
                 <a href="profile.html">
-                  <img src="assets/images/avatars/avatar-7.jpg" class="w-full h-full absolute object-cover inset-0">
+                  <img src="~/assets/images/avatars/avatar-7.jpg" class="w-full h-full absolute object-cover inset-0">
                 </a>
                 <a href="#" class="absolute right-3 top-3 bg-black bg-opacity-60 rounded-full"
                   data-tippy-placement="left" title="Hide">
@@ -291,7 +291,7 @@
             <li>
               <div class="bg-gray-200 max-w-full lg:h-64 h-52 rounded-lg relative overflow-hidden">
                 <a href="profile.html">
-                  <img src="assets/images/avatars/avatar-1.jpg" class="w-full h-full absolute object-cover inset-0">
+                  <img src="~/assets/images/avatars/avatar-1.jpg" class="w-full h-full absolute object-cover inset-0">
                 </a>
                 <a href="#" class="absolute right-3 top-3 bg-black bg-opacity-60 rounded-full"
                   data-tippy-placement="left" title="Hide">
@@ -338,18 +338,18 @@
           <div
             class="bg-red-400 max-w-full lg:h-60 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/post/img8.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/post/img8.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <a href="#story-modal" uk-toggle
               class="absolute flex h-full items-center justify-center w-8 w-full uk-transition-scale-up bg-black bg-opacity-10">
-              <img src="assets/images/icon-play.svg" alt="" class="w-16 h-16 -mt-5">
+              <img src="~/assets/images/icon-play.svg" alt="" class="w-16 h-16 -mt-5">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">
               <a href="profile.html" class="lg:flex flex-1 items-center hidden">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-0.5 mr-2">
-                  <img src="assets/images/avatars/avatar-2.jpg"
+                  <img src="~/assets/images/avatars/avatar-2.jpg"
                     class="bg-gray-200 border border-white rounded-full w-8">
                 </div>
                 <div> James Lewis </div>
@@ -367,14 +367,14 @@
           <div
             class="bg-green-400 max-w-full lg:h-72 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/post/img2.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/post/img2.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">
               <a href="profile.html" class="lg:flex flex-1 items-center hidden">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-0.5 mr-2">
-                  <img src="assets/images/avatars/avatar-2.jpg"
+                  <img src="~/assets/images/avatars/avatar-2.jpg"
                     class="bg-gray-200 border border-white rounded-full w-8">
                 </div>
                 <div> James Lewis </div>
@@ -392,18 +392,18 @@
           <div
             class="bg-yellow-400 max-w-full lg:h-60 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/post/img3.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/post/img3.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <a href="#story-modal" uk-toggle
               class="absolute flex h-full items-center justify-center w-8 w-full uk-transition-scale-up bg-black bg-opacity-10">
-              <img src="assets/images/icon-play.svg" alt="" class="w-16 h-16 -mt-5">
+              <img src="~/assets/images/icon-play.svg" alt="" class="w-16 h-16 -mt-5">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">
               <a href="profile.html" class="lg:flex flex-1 items-center hidden">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-0.5 mr-2">
-                  <img src="assets/images/avatars/avatar-2.jpg"
+                  <img src="~/assets/images/avatars/avatar-2.jpg"
                     class="bg-gray-200 border border-white rounded-full w-8">
                 </div>
                 <div> John Michael </div>
@@ -421,14 +421,14 @@
           <div
             class="bg-pink-400 max-w-full lg:h-72 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle lg:-mt-12">
             <a href="#story-modal">
-              <img src="assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">
               <a href="profile.html" class="lg:flex flex-1 items-center hidden">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-0.5 mr-2">
-                  <img src="assets/images/avatars/avatar-2.jpg"
+                  <img src="~/assets/images/avatars/avatar-2.jpg"
                     class="bg-gray-200 border border-white rounded-full w-8">
                 </div>
                 <div> Monroe Parker </div>
@@ -446,14 +446,14 @@
           <div
             class="bg-purple-400 max-w-full lg:h-60 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/post/img5.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/post/img5.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">
               <a href="profile.html" class="lg:flex flex-1 items-center hidden">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-0.5 mr-2">
-                  <img src="assets/images/avatars/avatar-2.jpg"
+                  <img src="~/assets/images/avatars/avatar-2.jpg"
                     class="bg-gray-200 border border-white rounded-full w-8">
                 </div>
                 <div> Martin Gray </div>
@@ -470,14 +470,14 @@
           <div
             class="bg-pink-400 max-w-full lg:h-72 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle lg:-mt-12">
             <a href="#story-modal">
-              <img src="assets/images/post/img1.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/post/img1.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">
               <a href="profile.html" class="lg:flex flex-1 items-center hidden">
                 <div
                   class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-1 rounded-full transform -rotate-2 hover:rotate-3 transition hover:scale-105 m-0.5 mr-2">
-                  <img src="assets/images/avatars/avatar-2.jpg"
+                  <img src="~/assets/images/avatars/avatar-2.jpg"
                     class="bg-gray-200 border border-white rounded-full w-8">
                 </div>
                 <div> Jesse Stevens </div>
@@ -499,7 +499,7 @@
           <div
             class="bg-red-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/post/img2.jpg"
+              <img src="~/assets/images/post/img2.jpg"
                 class="w-full h-full absolute object-cover inset-0 scale-150 transform">
             </a>
             <div
@@ -519,7 +519,7 @@
           <div
             class="bg-yellow-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/post/img6.jpg"
+              <img src="~/assets/images/post/img6.jpg"
                 class="w-full h-full absolute object-cover inset-0 scale-150 transform">
             </a>
             <div
@@ -539,7 +539,7 @@
           <div
             class="bg-green-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/avatars/avatar-1.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/avatars/avatar-1.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">
@@ -558,7 +558,7 @@
           <div
             class="bg-blue-400 max-w-full lg:h-56 h-48 rounded-lg relative overflow-hidden shadow uk-transition-toggle">
             <a href="#story-modal">
-              <img src="assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
+              <img src="~/assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
             </a>
             <div
               class="flex flex-1 items-center absolute bottom-0 w-full p-3 text-white custom-overly1 uk-transition-slide-bottom-medium">

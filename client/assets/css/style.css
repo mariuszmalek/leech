@@ -2248,11 +2248,11 @@ header .uk-dropdown {
 
 .sidebar .sidebar_inner ul li {
   display: block;
-  -webkit-transition: 0.3s;
   transition: 0.3s;
-  line-height: 25px;
-  font-size: 15px;
+  line-height: 45px;
+  font-size: 24px;
   border-radius: 5px;
+  font-weight: 700;
 }
 
 .sidebar .sidebar_inner ul li a {

@@ -3,11 +3,8 @@
                 <div class="header_inner">
                     <div class="left-side">
                         <!-- Logo -->
-                        <div id="logo" class=" uk-hidden@s">
-                            <a href="home.html">
-                                <img src="assets/images/logo-mobile.png" alt="">
-                                <img src="assets/images/logo-mobile-light.png" class="logo_inverse">
-                            </a>
+                        <div class="uk-hidden@s">
+                            <Logotype />
                         </div>
 
                         <div class="triger" uk-toggle="target: #wrapper ; cls: sidebar-active">
@@ -105,7 +102,7 @@
                             <ul class="dropdown_scrollbar" >
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-1.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <p> <strong>Adrian Mohani</strong>  Lorem ipsum dolor cursus
@@ -117,7 +114,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-2.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-2.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <p>
@@ -130,7 +127,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-3.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <p>
@@ -143,7 +140,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-1.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <p>
@@ -156,7 +153,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-3.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <p>
@@ -187,7 +184,7 @@
                             <ul class="dropdown_scrollbar" >
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-1.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <strong> John menathon </strong> <time> 6:43 PM</time>
@@ -197,7 +194,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-2.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-2.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <strong> Zara Ali </strong> <time>12:43 PM</time>
@@ -207,7 +204,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-3.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <strong> Mohamed Ali </strong> <time> Wed </time>
@@ -217,7 +214,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-1.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <strong> John menathon </strong> <time> Sun</time>
@@ -227,7 +224,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-2.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-2.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <strong> Zara Ali </strong> <time> Fri</time>
@@ -237,7 +234,7 @@
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <div class="drop_avatar"> <img src="assets/images/avatars/avatar-3.jpg" alt="">
+                                        <div class="drop_avatar"> <img src="~/assets/images/avatars/avatar-3.jpg" alt="">
                                         </div>
                                         <div class="drop_content">
                                             <strong> Mohamed Ali </strong> <time>1 Week ago</time>
@@ -251,9 +248,9 @@
 
                         <!-- profile -->
 
-                        <a href="#">
-                            <img src="assets/images/avatars/avatar-2.jpg" class="header-avatar" alt="">
-                        </a>
+                        <nuxt-link :to="{ name: 'dashboard.profile' }">
+                            <img src="~/assets/images/avatars/avatar-2.jpg" class="header-avatar" alt="">
+                        </nuxt-link>
                         <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
                             <ul>
                                 <li><a href="#"> Account setting </a> </li>
@@ -268,7 +265,10 @@
             </header>
 </template>
 <script>
+import Logotype from './Logotype'
 export default {
-    
+    components: {
+        Logotype
+    }
 }
 </script>

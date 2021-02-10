@@ -822,7 +822,7 @@ video {
 }
 
 .from-yellow-600{
-  --tw-gradient-from: #d97706;
+  --tw-gradient-from: #d92880;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(217, 119, 6, 0));
 }
 
@@ -837,7 +837,7 @@ video {
 }
 
 .from-pink-500{
-  --tw-gradient-from: #ec4899;
+  --tw-gradient-from: #aa48ec;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(236, 72, 153, 0));
 }
 
@@ -850,7 +850,7 @@ video {
 }
 
 .to-red-400{
-  --tw-gradient-to: #f87171;
+  --tw-gradient-to: #6d28d9;
 }
 
 .to-purple-700{
@@ -858,7 +858,7 @@ video {
 }
 
 .to-pink-600{
-  --tw-gradient-to: #db2777;
+  --tw-gradient-to: #6d28d9;
 }
 
 .bg-opacity-10{

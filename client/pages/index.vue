@@ -4,12 +4,10 @@
         <!-- header-->
         <div class="bg-white py-4 shadow dark:bg-gray-800">
             <div class="max-w-6xl mx-auto">
-
-
                 <div class="flex items-center lg:justify-between justify-around">
 
                     <a href="trending.html">
-                        <Logo />
+                        <Logotype />
                     </a>
 
                     <div class="capitalize flex font-semibold hidden lg:block my-2 space-x-3 text-center text-sm">
@@ -62,5 +60,10 @@
 </template>
 
 <script>
-export default {}
+import Logotype from '../components/partials/Logotype'
+export default {
+    components: {
+        Logotype
+    }
+}
 </script>

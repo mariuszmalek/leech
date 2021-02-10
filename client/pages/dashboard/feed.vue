@@ -16,7 +16,7 @@
               <div class="flex flex-1 items-center space-x-4">
                 <a href="#">
                   <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-                    <img src="assets/images/avatars/avatar-2.jpg"
+                    <img src="~/assets/images/avatars/avatar-2.jpg"
                       class="bg-gray-200 border border-white rounded-full w-8 h-8">
                   </div>
                 </a>
@@ -72,7 +72,7 @@
 
             <div uk-lightbox>
               <a href="assets/images/post/img4.jpg">
-                <img src="assets/images/post/img4.jpg" alt="">
+                <img src="~/assets/images/post/img4.jpg" alt="">
               </a>
             </div>
 
@@ -112,11 +112,11 @@
               </div>
               <div class="flex items-center space-x-3">
                 <div class="flex items-center">
-                  <img src="assets/images/avatars/avatar-1.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-1.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
-                  <img src="assets/images/avatars/avatar-4.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-4.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                  <img src="assets/images/avatars/avatar-2.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-2.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
                 </div>
                 <div class="dark:text-gray-100">
@@ -127,7 +127,7 @@
               <div class="border-t pt-4 space-y-4 dark:border-gray-600">
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -138,7 +138,7 @@
                 </div>
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -171,7 +171,7 @@
               <div class="flex flex-1 items-center space-x-4">
                 <a href="#">
                   <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-                    <img src="assets/images/avatars/avatar-2.jpg"
+                    <img src="~/assets/images/avatars/avatar-2.jpg"
                       class="bg-gray-200 border border-white rounded-full w-8 h-8">
                   </div>
                 </a>
@@ -229,13 +229,13 @@
               <div class="grid grid-cols-2 gap-2 p-2">
 
                 <a href="assets/images/post/img9.jpg" class="col-span-2">
-                  <img src="assets/images/post/img9.jpg" alt="" class="rounded-md w-full lg:h-76 object-cover">
+                  <img src="~/assets/images/post/img9.jpg" alt="" class="rounded-md w-full lg:h-76 object-cover">
                 </a>
                 <a href="assets/images/post/img10.jpg">
-                  <img src="assets/images/post/img10.jpg" alt="" class="rounded-md w-full h-full">
+                  <img src="~/assets/images/post/img10.jpg" alt="" class="rounded-md w-full h-full">
                 </a>
                 <a href="assets/images/post/img11.jpg" class="relative">
-                  <img src="assets/images/post/img11.jpg" alt="" class="rounded-md w-full h-full">
+                  <img src="~/assets/images/post/img11.jpg" alt="" class="rounded-md w-full h-full">
                   <div
                     class="absolute bg-gray-900 bg-opacity-30 flex justify-center items-center text-white rounded-md inset-0 text-2xl">
                     + 15 more </div>
@@ -279,11 +279,11 @@
               </div>
               <div class="flex items-center space-x-3">
                 <div class="flex items-center">
-                  <img src="assets/images/avatars/avatar-1.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-1.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
-                  <img src="assets/images/avatars/avatar-4.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-4.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                  <img src="assets/images/avatars/avatar-2.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-2.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
                 </div>
                 <div class="dark:text-gray-100">
@@ -294,7 +294,7 @@
               <div class="border-t pt-4 space-y-4 dark:border-gray-600">
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -305,7 +305,7 @@
                 </div>
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -344,7 +344,7 @@
               <div class="flex flex-1 items-center space-x-4">
                 <a href="#">
                   <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-                    <img src="assets/images/avatars/avatar-2.jpg"
+                    <img src="~/assets/images/avatars/avatar-2.jpg"
                       class="bg-gray-200 border border-white rounded-full w-8 h-8">
                   </div>
                 </a>
@@ -442,11 +442,11 @@
               </div>
               <div class="flex items-center space-x-3">
                 <div class="flex items-center">
-                  <img src="assets/images/avatars/avatar-1.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-1.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
-                  <img src="assets/images/avatars/avatar-4.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-4.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                  <img src="assets/images/avatars/avatar-2.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-2.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
                 </div>
                 <div class="dark:text-gray-100">
@@ -457,7 +457,7 @@
               <div class="border-t pt-4 space-y-4 dark:border-gray-600">
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -468,7 +468,7 @@
                 </div>
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -500,7 +500,7 @@
               <div class="flex flex-1 items-center space-x-4">
                 <a href="#">
                   <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
-                    <img src="assets/images/avatars/avatar-2.jpg"
+                    <img src="~/assets/images/avatars/avatar-2.jpg"
                       class="bg-gray-200 border border-white rounded-full w-8 h-8">
                   </div>
                 </a>
@@ -596,11 +596,11 @@
               </div>
               <div class="flex items-center space-x-3">
                 <div class="flex items-center">
-                  <img src="assets/images/avatars/avatar-1.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-1.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900">
-                  <img src="assets/images/avatars/avatar-4.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-4.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
-                  <img src="assets/images/avatars/avatar-2.jpg" alt=""
+                  <img src="~/assets/images/avatars/avatar-2.jpg" alt=""
                     class="w-6 h-6 rounded-full border-2 border-white dark:border-gray-900 -ml-2">
                 </div>
                 <div class="dark:text-gray-100">
@@ -611,7 +611,7 @@
               <div class="border-t pt-4 space-y-4 dark:border-gray-600">
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -622,7 +622,7 @@
                 </div>
                 <div class="flex">
                   <div class="w-10 h-10 rounded-full relative flex-shrink-0">
-                    <img src="assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" alt="" class="absolute h-full rounded-full w-full">
                   </div>
                   <div
                     class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20  dark:bg-gray-800 dark:text-gray-100">
@@ -672,7 +672,7 @@
               <div class="flex items-center justify-between py-3">
                 <div class="flex flex-1 items-center space-x-4">
                   <a href="profile.html">
-                    <img src="assets/images/avatars/avatar-2.jpg" class="bg-gray-200 rounded-full w-10 h-10">
+                    <img src="~/assets/images/avatars/avatar-2.jpg" class="bg-gray-200 rounded-full w-10 h-10">
                   </a>
                   <div class="flex flex-col">
                     <span class="block capitalize font-semibold"> Johnson smith </span>
@@ -687,7 +687,7 @@
               <div class="flex items-center justify-between py-3">
                 <div class="flex flex-1 items-center space-x-4">
                   <a href="profile.html">
-                    <img src="assets/images/avatars/avatar-1.jpg" class="bg-gray-200 rounded-full w-10 h-10">
+                    <img src="~/assets/images/avatars/avatar-1.jpg" class="bg-gray-200 rounded-full w-10 h-10">
                   </a>
                   <div class="flex flex-col">
                     <span class="block capitalize font-semibold"> James Lewis </span>
@@ -701,7 +701,7 @@
               <div class="flex items-center justify-between py-3">
                 <div class="flex flex-1 items-center space-x-4">
                   <a href="profile.html">
-                    <img src="assets/images/avatars/avatar-5.jpg" class="bg-gray-200 rounded-full w-10 h-10">
+                    <img src="~/assets/images/avatars/avatar-5.jpg" class="bg-gray-200 rounded-full w-10 h-10">
                   </a>
                   <div class="flex flex-col">
                     <span class="block capitalize font-semibold"> John Michael </span>
@@ -715,7 +715,7 @@
               <div class="flex items-center justify-between py-3">
                 <div class="flex flex-1 items-center space-x-4">
                   <a href="profile.html">
-                    <img src="assets/images/avatars/avatar-7.jpg" class="bg-gray-200 rounded-full w-10 h-10">
+                    <img src="~/assets/images/avatars/avatar-7.jpg" class="bg-gray-200 rounded-full w-10 h-10">
                   </a>
                   <div class="flex flex-col">
                     <span class="block capitalize font-semibold"> Monroe Parker </span>
@@ -745,7 +745,7 @@
 
                 <div class="bg-red-500 max-w-full h-32 rounded-lg relative overflow-hidden uk-transition-toggle">
                   <a href="#story-modal" >
-                    <img src="assets/images/post/img2.jpg" class="w-full h-full absolute object-cover inset-0">
+                    <img src="~/assets/images/post/img2.jpg" class="w-full h-full absolute object-cover inset-0">
                   </a>
                   <div
                     class="flex flex-1 justify-around items-center absolute bottom-0 w-full p-2 text-white custom-overly1 uk-transition-slide-bottom-medium">
@@ -756,7 +756,7 @@
 
                 <div class="bg-red-500 max-w-full h-40 rounded-lg relative overflow-hidden uk-transition-toggle">
                   <a href="#story-modal" >
-                    <img src="assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
+                    <img src="~/assets/images/post/img7.jpg" class="w-full h-full absolute object-cover inset-0">
                   </a>
                   <div
                     class="flex flex-1 justify-around items-center absolute bottom-0 w-full p-2 text-white custom-overly1 uk-transition-slide-bottom-medium">
@@ -767,7 +767,7 @@
 
                 <div class="bg-red-500 max-w-full h-40 -mt-8 rounded-lg relative overflow-hidden uk-transition-toggle">
                   <a href="#story-modal" >
-                    <img src="assets/images/post/img5.jpg" class="w-full h-full absolute object-cover inset-0">
+                    <img src="~/assets/images/post/img5.jpg" class="w-full h-full absolute object-cover inset-0">
                   </a>
                   <div
                     class="flex flex-1 justify-around  items-center absolute bottom-0 w-full p-2 text-white custom-overly1 uk-transition-slide-bottom-medium">
@@ -778,7 +778,7 @@
 
                 <div class="bg-red-500 max-w-full h-32 rounded-lg relative overflow-hidden uk-transition-toggle">
                   <a href="#story-modal" >
-                    <img src="assets/images/post/img3.jpg" class="w-full h-full absolute object-cover inset-0">
+                    <img src="~/assets/images/post/img3.jpg" class="w-full h-full absolute object-cover inset-0">
                   </a>
                   <div
                     class="flex flex-1 justify-around  items-center absolute bottom-0 w-full p-2 text-white custom-overly1 uk-transition-slide-bottom-medium">

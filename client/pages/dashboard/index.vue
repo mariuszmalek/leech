@@ -30,8 +30,7 @@
           <!-- upload -->
           <a href="#"
             class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-4 px-4 py-2 rounded shado text-white">
-            <ion-icon name="add-circle" class="-mb-1
-                             mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Upload
+            Upload
           </a>
           <!-- upload dropdown box -->
           <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small"
@@ -107,7 +106,7 @@
           <div uk-drop="mode: click;offset: 4" class="header_dropdown">
             <h4 class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
               Notification </h4>
-            <ul class="dropdown_scrollbar" data-simplebar>
+            <ul class="dropdown_scrollbar" >
               <li>
                 <a href="#">
                   <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">
@@ -187,7 +186,7 @@
           <div uk-drop="mode: click;offset: 4" class="header_dropdown">
             <h4 class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
               Messages </h4>
-            <ul class="dropdown_scrollbar" data-simplebar>
+            <ul class="dropdown_scrollbar" >
               <li>
                 <a href="#">
                   <div class="drop_avatar"> <img src="assets/images/avatars/avatar-1.jpg" alt="">

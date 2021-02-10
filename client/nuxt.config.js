@@ -1,80 +1,45 @@
-module.exports = {
-  mode: 'spa',
-  router: {
-    base: process.env.DEPLOY_ENV === 'GH_PAGES' ? '/leech/' : '/',
-    linkExactActiveClass: 'is-active'
-  },
-  /*
-  ** Headers of the page
-  */
+export default {
+  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s | Leech',
-    title: 'Leech',
+    title: 'leech',
+    htmlAttrs: {
+      lang: 'en'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Leech admin panel' }
+      { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Heebo:400,500,700|Markazi+Text:400,600,700'
-      }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
-  /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
-
-  /*
-  ** Global CSS
-  */
-  css: [],
-
-  /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-    '~/plugins/globals',
-    '~/plugins/vue-multiselect',
-    '~/plugins/vee-validate',
-    '~/plugins/vue-flatpickr',
-    '~/plugins/vue-notification.client',
-    '~/plugins/vue-goodtable.client',
-    '~/plugins/apex-charts.client',
-    '~/plugins/vue2-editor.client',
-    '~/plugins/vue2-dropzone.client'
+  // Global CSS: https://go.nuxtjs.dev/config-css
+  css: [
+    '@/assets/css/icons.css',
+    '@/assets/css/style.css',
+    '@/assets/css/tailwind.css',
+    '@/assets/css/uikit.css'
   ],
 
-  /*
-  ** Nuxt.js modules
-  */
-  modules: ['@nuxtjs/style-resources', '@nuxtjs/pwa'],
+  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  plugins: [
+  ],
 
-  styleResources: {
-    stylus: ['~assets/css/global.styl']
-  },
-  /*
-  ** Build configuration
-  */
+  // Auto import components: https://go.nuxtjs.dev/config-components
+  components: true,
+
+  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
+  buildModules: [
+    '@nuxtjs/router'
+  ],
+
+  // Modules: https://go.nuxtjs.dev/config-modules
+  modules: [
+  ],
+
+  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-      // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-    }
   }
 }
